@@ -1,5 +1,9 @@
 @extends('layout.default')
 
 @section('content')
-<h1>Hello</h1>
+<div class="entries">
+  @foreach ($entries as $entry)
+    <p>{{ $entry->content }}</p>
+  @endforeach
+</div>
 @endsection
