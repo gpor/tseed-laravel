@@ -1,0 +1,30 @@
+@use '../agnostic/general.scss' as *;
+@use '../project-base/typography.scss' as *;
+
+body {
+  @include p(false);
+}
+
+h1 {
+  @include h1(true);
+}
+h2 {
+  @include h2(true);
+}
+h3 {
+  @include h3(true);
+}
+h4 {
+  @include h4(true);
+}
+h5 {
+  @include h5(true);
+}
+p {
+  @include p(true);
+}
+a {
+  @include link-hover(var(--link-color), var(--link-color-hover));
+  text-underline-offset: 0.1em;
+  text-decoration-color: var(--link-color, rgb(107, 122, 207));
+}

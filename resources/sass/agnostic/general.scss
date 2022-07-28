@@ -48,6 +48,11 @@ $p-els: 'p, li, td, th';
   #{$propName}: #{(math.div($full, 11))}vw;
   #{$propName}: clamp(#{$sml}px, #{(math.div($full, 11))}vw, #{$full}px);
 }
+@mixin font-size($remMin, $remMax) {
+  font-size: #{$remMax}rem;
+  font-size: clamp(#{$remMin}rem, #{$remMax * 1.5}vw, #{$remMax}rem);
+}
+
 
 @mixin page-gutter-agnostic($side, $frame-max, $min-gutter: 5vw) {
   padding-#{$side}: clamp(#{$min-gutter}, 50vw - #{math.div($frame-max, 2)}, 50vw)
