@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\EntryController;
+use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,9 +14,12 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::group([
+  'as' => 'site.',
+], function () {
 
-Route::get('/', function () {
-  return redirect('/entries');
+  Route::get('/', [HomeController::class, 'index'])->name('home');
+  Route::get('/a', [HomeController::class, 'index'])->name('a');
+
+  Route::resource('entries', EntryController::class);
 });
-
-Route::resource('entries/{root?}', EntryController::class);

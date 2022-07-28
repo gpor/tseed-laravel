@@ -12,7 +12,7 @@ class EntryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index($root = null)
+    public function index()
     {
         $entries = Entry::whereParentId(config('entries.ids.primary'))->get();
         return view('entries', [
@@ -49,7 +49,10 @@ class EntryController extends Controller
      */
     public function show($id)
     {
-        //
+        $entries = Entry::whereParentId($id)->get();
+        return view('entries', [
+          'entries' => $entries,
+        ]);
     }
 
     /**
