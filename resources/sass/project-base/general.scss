@@ -1,0 +1,26 @@
+@use '~/sass/agnostic/general.scss' as a;
+
+$stroke-faint: 1px solid var(--stroke-color-faint, #e7e7e7);
+$stroke-med: 1px solid var(--stroke-color-med, #bbb);
+
+
+@mixin element-pad-x($side: null) {
+  @if ($side != right) {
+    @include a.clamp(15, 20, 'padding-left');
+  }
+  @if ($side != left) {
+    @include a.clamp(15, 20, 'padding-right');
+  }
+}
+@mixin element-pad-y($side: null) {
+  @if ($side != bottom) {
+    @include a.clamp(10, 15, 'padding-top');
+  }
+  @if ($side != top) {
+    @include a.clamp(10, 15, 'padding-bottom');
+  }
+}
+@mixin element-pad {
+  @include element-pad-x;
+  @include element-pad-y;
+}

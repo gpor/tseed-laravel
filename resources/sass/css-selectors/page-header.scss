@@ -1,0 +1,16 @@
+@use '~/sass/agnostic/general.scss' as a;
+@use '~/sass/project-base/general.scss' as *;
+
+.page-header {
+  @include a.clamp(30, 50, 'margin-bottom');
+  width: 100%;
+  border-bottom: $stroke-faint;
+  .center-frame {
+    @include a.space-between-center;
+    @include a.pad-y(10px);
+    a.-logo {
+      @include element-pad;
+      text-decoration: none;
+    }
+  }
+}

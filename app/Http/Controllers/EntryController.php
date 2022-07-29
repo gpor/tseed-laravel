@@ -14,12 +14,29 @@ class EntryController extends Controller
      */
     public function index()
     {
-        $entries = Entry::whereParentId(config('entries.ids.primary'))->get();
-        return view('entries', [
-          'entries' => $entries,
-        ]);
+        return self::entriesView(config('entries.ids.primary'));
     }
 
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
+    {
+        return self::entriesView($id);
+    }
+
+    private function entriesView($id)
+    {
+        $rootEntry = Entry::find($id);
+        $entries = Entry::whereParentId($id)->with('entries')->get();
+        return view('entries', [
+          'entries' => $entries,
+          'rootEntry' => $rootEntry,
+        ]);
+    }
     /**
      * Show the form for creating a new resource.
      *
@@ -39,20 +56,6 @@ class EntryController extends Controller
     public function store(Request $request)
     {
         //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        $entries = Entry::whereParentId($id)->get();
-        return view('entries', [
-          'entries' => $entries,
-        ]);
     }
 
     /**

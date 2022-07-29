@@ -1,5 +1,6 @@
 @use '../agnostic/general.scss' as *;
 @use '../project-base/typography.scss' as *;
+@use '~/sass/project-base/css-vars.scss' as *;
 
 body {
   @include p(false);
@@ -24,7 +25,7 @@ p {
   @include p(true);
 }
 a {
-  @include link-hover(var(--link-color), var(--link-color-hover));
+  @include link-hover($link-color, $link-color-hover);
   text-underline-offset: 0.1em;
   text-decoration-color: var(--link-color, rgb(107, 122, 207));
 }

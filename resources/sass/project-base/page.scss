@@ -1,5 +1,16 @@
+@use '~/sass/agnostic/general.scss' as a;
 
 
+$frame-max: 1400px;
+
+@mixin page-gutter($side) {
+  @include a.page-gutter-agnostic($side, $frame-max);
+}
+
+@mixin center-frame {
+  @include page-gutter('left');
+  @include page-gutter('right');
+}
 
 
 

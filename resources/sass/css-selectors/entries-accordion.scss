@@ -1,0 +1,52 @@
+@use '~/sass/agnostic/general.scss' as a;
+@use '~/sass/project-base/general.scss' as *;
+@use '~/sass/project-base/typography.scss' as *;
+@use '~/sass/project-base/css-vars.scss' as *;
+
+
+.entries-accordion {
+  .-entry {
+    .-head {
+      @include element-pad;
+      @include a.space-between;
+      .-left {
+        display: inline-flex;
+        gap: 10px;
+        p {
+          display: inline-block;
+          margin: 0;
+          &.-children {
+            background-color: $bg-invert1;
+            color: $text-invert;
+            text-align: center;
+            font-weight: $font-body-weight-bold;
+            width: 26px;
+            height: 26px;
+            line-height: 26px;
+            font-size: 12px;
+            border-radius: 99px;
+          }
+        }
+      }
+      .-right {
+        display: inline-flex;
+        align-items: center;
+        .-chev {
+          cursor: pointer;
+          opacity: 0.4;
+          transition: opacity 0.2s linear;
+          svg path {
+            stroke: #fff;
+          }
+          &:hover {
+            opacity: 1;
+          }
+        }
+      }
+    }
+    .-body {
+
+    }
+  }
+}
+

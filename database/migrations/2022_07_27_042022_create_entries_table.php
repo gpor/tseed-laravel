@@ -27,13 +27,13 @@ class CreateEntriesTable extends Migration
         $primary = Entry::create([
             'id' => 1,
             'parent_id' => null,
-            'content' => 'primary',
+            'content' => 'Primary',
             'pos' => 0,
         ]);
         $tags = Entry::create([
             'id' => 2,
             'parent_id' => null,
-            'content' => 'tags',
+            'content' => 'Tags',
             'pos' => 1,
         ]);
     }

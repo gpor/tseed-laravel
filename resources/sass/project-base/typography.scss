@@ -1,20 +1,20 @@
-@use '../agnostic/general.scss' as agnostic;
+@use '../agnostic/general.scss' as a;
+
+$font-body-weight-normal: 200;
+$font-body-weight-bold: 500;
 
 @mixin font-family-body($font-weight: true) {
   font-family: 'Noto Sans Mono', monospace;
   @if ($font-weight == true) {
-    font-weight: 200;
+    font-weight: $font-body-weight-normal;
   }
   strong {
-    font-weight: 500;
+    font-weight: $font-body-weight-bold;
   }
 }
 
 @mixin text-color-main {
   color: var(--text-main, #000);
-}
-@mixin text-theme-color-1 {
-  color: var(--theme-color-1, rgb(194, 123, 56));
 }
 
 @mixin text-y-margin($m: 1em) {
@@ -41,22 +41,19 @@
 }
 
 @mixin h1($margins: false, $color: false) {
-  @include agnostic.font-size(2, 3);
+  @include a.font-size(2, 3);
   @include font-family-body;
   line-height: 1;
   // margin-left: -0.06em;
   @if ($color == true) {
     @include text-color-main;
-    strong, b {
-      @include text-theme-color-1;
-    }
   }
   @if ($margins == true) {
     @include text-y-margin(0.9em);
   }
 }
 @mixin h2($margins: false, $color: true) {
-  @include agnostic.font-size(1.7, 2.4);
+  @include a.font-size(1.7, 2.4);
   @include font-family-body;
   line-height: 1.11;
   @if ($color == true) {
@@ -67,7 +64,7 @@
   }
 }
 @mixin h3($margins: false, $color: true) {
-  @include agnostic.font-size(1.5, 1.9);
+  @include a.font-size(1.5, 1.9);
   @include font-family-body;
   line-height: 1.2;
   @if ($color == true) {
@@ -78,7 +75,7 @@
   }
 }
 @mixin h4($margins: false, $color: true) {
-  @include agnostic.font-size(1.3, 1.5);
+  @include a.font-size(1.3, 1.5);
   @include font-family-body;
   line-height: 1.4;
   @if ($color == true) {
@@ -89,7 +86,7 @@
   }
 }
 @mixin h5($margins: false, $color: true) {
-  @include agnostic.font-size(1.1, 1.3);
+  @include a.font-size(1.1, 1.3);
   @include font-family-body;
   line-height: 1.4;
   @if ($color == true) {
@@ -100,7 +97,7 @@
   }
 }
 @mixin h6($margins: false, $color: true) {
-  @include agnostic.font-size(1, 1.1);
+  @include a.font-size(1, 1.1);
   @include font-family-body;
   line-height: 1.56;
   @if ($color == true) {
@@ -111,7 +108,7 @@
   }
 }
 @mixin p($margins: false, $color: true) {
-  @include agnostic.font-size(0.9, 1);
+  @include a.font-size(0.9, 1);
   @include font-family-body;
   line-height: 1.75;
   @if ($color == true) {

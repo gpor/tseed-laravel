@@ -11,20 +11,29 @@
 <link rel="stylesheet" defer href="/css/site.css" />
 
 
+
 <style>
 :root {
     --bg-main: #fff;
-    --bg-variant: #eec;
+    --bg-var1: #f6f6f6;
+    --bg-var2: #eee;
+    --bg-invert1: rgb(194, 123, 56);
+    --stroke-color-faint: #e7e7e7;
+    --stroke-color-med: #bbb;
     --text-main: #000;
-    --theme-color-1: rgb(194, 123, 56);
+    --text-invert: #fff;
     --link-color: rgb(107, 122, 207);
     --link-color-hover: rgba(122, 142, 255);
 }
 .-dark-theme {
-    --bg-main: #333;
-    --bg-variant: #111;
+    --bg-main: #222;
+    --bg-var1: #272727;
+    --bg-var2: #333;
+    --bg-invert1: rgb(240, 150, 40);
+    --stroke-color-faint: #3a3a3a;
+    --stroke-color-med: #555;
     --text-main: #fff;
-    --theme-color-1: rgb(194, 123, 56);
+    --text-invert: #000;
     --link-color: rgb(107, 122, 207);
     --link-color-hover: rgba(122, 142, 255);
 }

@@ -10,4 +10,9 @@ class Entry extends Model
     use HasFactory;
 
     protected $fillable = ['id', 'parent_id', 'content', 'pos'];
+
+    public function entries()
+    {
+        return $this->hasMany(Entry::class, 'parent_id');
+    }
 }
