@@ -4,7 +4,7 @@
             class="-logo"
             href="/entries"
         >
-            <p>TypeSeed</p>
+            <full-logo></full-logo>
         </a>
     </div>
 </header>

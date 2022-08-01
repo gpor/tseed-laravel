@@ -1,4 +1,5 @@
 @use '~/sass/agnostic/general.scss' as a;
+@use '~/sass/project-base/css-vars.scss' as *;
 @use '~/sass/project-base/general.scss' as *;
 
 .page-header {
@@ -11,6 +12,12 @@
     a.-logo {
       @include element-pad;
       text-decoration: none;
+      svg {
+        @include a.clamp(70, 120, 'width');
+        path {
+          stroke: $text-main;
+        }
+      }
     }
   }
 }

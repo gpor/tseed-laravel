@@ -46,6 +46,11 @@ export default {
       this.entryObjs.push(entry)
     })
     console.log('this.entries', this.entryObjs)
+    const prefersDarkMode = window.matchMedia("(prefers-color-scheme:dark)").matches
+    if (prefersDarkMode) {
+      document.body.classList.add('-dark-theme')
+    }
+    console.log('prefersDarkMode', prefersDarkMode)
   },
 }
 </script>

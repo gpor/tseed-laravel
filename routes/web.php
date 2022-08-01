@@ -2,7 +2,7 @@
 
 use App\Http\Controllers\Site\EntryController;
 use App\Http\Controllers\Api\GeneralController;
-use App\Http\Controllers\HomeController;
+use App\Http\Controllers\Site\HomeController;
 use Illuminate\Support\Facades\Route;
 
 /*

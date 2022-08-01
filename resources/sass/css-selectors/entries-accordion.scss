@@ -21,6 +21,7 @@
             margin: 0;
             &.-children {
               background-color: $bg-invert1;
+              transition: background-color 0.2s linear;
               color: $text-invert;
               text-align: center;
               font-weight: $font-body-weight-bold;
