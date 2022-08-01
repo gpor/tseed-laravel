@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Site;
 
+use App\Http\Controllers\Controller;
 use App\Models\Entry;
 use Illuminate\Http\Request;
 
@@ -30,6 +31,9 @@ class EntryController extends Controller
 
     private function entriesView($id)
     {
+        // Sec-CH-Prefers-Color-Scheme
+        dd($_SERVER);
+        $headerStringValue = $_SERVER['HTTP_XXXXXX_XXXX'];
         $rootEntry = Entry::find($id);
         $entries = Entry::whereParentId($id)->with('entries')->get();
         return view('entries', [

@@ -1,6 +1,7 @@
 <?php
 
-use App\Http\Controllers\EntryController;
+use App\Http\Controllers\Site\EntryController;
+use App\Http\Controllers\Api\GeneralController;
 use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 
@@ -19,7 +20,13 @@ Route::group([
 ], function () {
 
   Route::get('/', [HomeController::class, 'index'])->name('home');
-  Route::get('/a', [HomeController::class, 'index'])->name('a');
-
   Route::resource('entries', EntryController::class);
+});
+Route::group([
+  'as' => 'api.',
+  'prefix' => 'api/',
+], function () {
+
+  Route::get('/entries-with-children', [GeneralController::class, 'entriesWithChildren'])->name('entries-with-children');
+  // Route::get('/entries-with-children-primary', [EntryController::class, 'entriesWithChildrenPrimary'])->name('entries-with-children-primary');
 });

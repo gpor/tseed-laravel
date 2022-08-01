@@ -12,6 +12,7 @@
       </header>
       <entries-accordion
         :entries="{{ json_encode($entries) }}"
+        entries-api-url="{{ route('api.entries-with-children') }}"
       ></entries-accordion>
     </section>
   </div>

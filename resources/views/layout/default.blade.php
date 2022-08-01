@@ -3,7 +3,9 @@
     <head>
         @include('layout.partial.head')
     </head>
-    <body class="layout-default -dark-theme">
+    <body
+        class="layout-default @if($darkTheme ?? false) -dark-theme @endif"
+    >
         <div id="vue-app">
             @include('layout.partial.page-header')
             @yield('content')

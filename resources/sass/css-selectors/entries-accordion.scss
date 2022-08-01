@@ -6,46 +6,103 @@
 
 .entries-accordion {
   .-entry {
-    .-head {
-      @include element-pad;
-      @include a.space-between;
-      .-left {
-        display: inline-flex;
-        gap: 10px;
-        p {
-          display: inline-block;
-          margin: 0;
-          &.-children {
-            background-color: $bg-invert1;
-            color: $text-invert;
-            text-align: center;
-            font-weight: $font-body-weight-bold;
-            width: 26px;
-            height: 26px;
-            line-height: 26px;
-            font-size: 12px;
-            border-radius: 99px;
+    min-height: 60px;
+    .entry-expandable {
+      .-head {
+        @include element-pad;
+        @include a.space-between;
+        user-select: none;
+        .-left {
+          display: inline-flex;
+          gap: 10px;
+          align-items: center;
+          p {
+            display: inline-block;
+            margin: 0;
+            &.-children {
+              background-color: $bg-invert1;
+              color: $text-invert;
+              text-align: center;
+              font-weight: $font-body-weight-bold;
+              width: 26px;
+              height: 26px;
+              line-height: 26px;
+              font-size: 12px;
+              border-radius: 99px;
+            }
+          }
+          .spinner {
+            stroke: $bg-invert1;
+            width: 20px;
+          }
+        }
+        .-right {
+          display: inline-flex;
+          align-items: center;
+          .-chev, .-add {
+            cursor: pointer;
+            opacity: 0.4;
+            transition: opacity 0.2s linear, transform 0.5s ease;
+            svg {
+              path {
+                stroke: $text-main;
+              }
+            }
+            &:hover {
+              opacity: 1;
+            }
+          }
+          .-chev {
+            padding: 2px 10px;
+            svg {
+              width: 15px;
+            }
+          }
+          .-add {
+            padding: 0 8px;
+            svg {
+              width: 18px;
+            }
           }
         }
       }
-      .-right {
-        display: inline-flex;
-        align-items: center;
-        .-chev {
-          cursor: pointer;
-          opacity: 0.4;
-          transition: opacity 0.2s linear;
-          svg path {
-            stroke: #fff;
+      .-body {
+        padding-left: 30px;
+        position: relative;
+        .-line {
+          pointer-events: none;
+          position: absolute;
+          left: 22px;
+          bottom: 35px;
+          width: 12px;
+          top: 0;
+        }
+      }
+      &.-expanded {
+        > .-head {
+          .-left {
+            p {
+              &.-children {
+                background-color: $stroke-color-med;
+              }
+            }
           }
-          &:hover {
-            opacity: 1;
+          .-right {
+            .-chev {
+              transform: rotateX(180deg);
+              svg path {
+              }
+            }
+          }
+        }
+        > .-body {
+          > .-line {
+            border: $stroke-faint;
+            border-right: none;
+            border-top: none;
           }
         }
       }
-    }
-    .-body {
-
     }
   }
 }
