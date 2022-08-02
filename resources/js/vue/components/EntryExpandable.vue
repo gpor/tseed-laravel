@@ -3,7 +3,11 @@
     class="entry-expandable"
     :class="{'-expanded': isExpanded}"
   >
-    <div class="-head">
+    <Drop
+      class="-head"
+      accepts-type="entry"
+      @drop="dropEntryOnEntry"
+    >
       <div class="-left">
         <p class="-content">
           {{ entry.content }}
@@ -35,22 +39,44 @@
           <AddIcon />
         </div>
       </div>
-    </div>
+    </Drop>
     <div class="-body">
       <div class="-line" />
       <div
         v-if="isExpanded"
-        class=""
+        class="-children"
       >
         <div
           v-for="(e, j) in entry.entries"
           :key="e.id"
           class="-entry"
         >
-          <EntryExpandable
-            :entry="e"
-            :i="j"
-          />
+          <div
+            v-if="j === 0"
+            class="-insert-zone"
+          >
+            <Drop
+              accepts-type="entry"
+              @drop="insertEntry(j, $event)"
+            ></Drop>
+          </div>
+          <Drag
+            :data="e"
+            type="entry"
+          >
+            <EntryExpandable
+              :entry="e"
+              :i="j"
+            />
+          </Drag>
+          <div
+            class="-insert-zone"
+          >
+            <Drop
+              accepts-type="entry"
+              @drop="insertEntry(j + 1, $event)"
+            ></Drop>
+          </div>
         </div>
         <div class="-entry"></div>
       </div>
@@ -63,6 +89,7 @@ import ChevDown from '~/js/vue/components/svg/ChevDown.vue'
 import AddIcon from '~/js/vue/components/svg/AddIcon.vue'
 import Spinner from '~/js/vue/components/svg/Spinner.vue'
 import axios from 'axios'
+import { Drag, Drop } from "vue-easy-dnd";
 
 export default {
   name: 'EntryExpandable',
@@ -70,6 +97,8 @@ export default {
     ChevDown,
     AddIcon,
     Spinner,
+    Drag,
+    Drop,
   },
   props: {
     entry: {
@@ -87,6 +116,7 @@ export default {
   }),
   created() {
     this.entry.entries.forEach(e => {
+      e.parent = this.entry
       if ('entries' in e) {
         e.childrenQueried = true
       } else {
@@ -96,8 +126,32 @@ export default {
     })
   },
   methods: {
+    insertEntry(pos, e) {
+      const dragged = e.data
+      const parent = this.entry
+      dragged.parent.entries.splice(dragged.parent.entries.findIndex(e => e === dragged), 1)
+      parent.entries.splice(pos, 0, dragged)
+      console.log('insertEntry', pos, dragged.content, parent.content)
+    },
+    dropEntryOnEntry(e) {
+      const dragged = e.data
+      const target = this.entry
+      console.log('dropEntry', dragged.content, target.content)
+      // todo - reject if target is a child of dragged
+      let parent = target.parent
+      let found = false
+      while (parent && ! found) {
+        if (parent === dragged) {
+          found = true
+        }
+        parent = parent.parent
+      }
+      console.log('found', found)
+      if ( ! found) {
+        // move to target.entries
+      }
+    },
     expand() {
-      console.log('click expand', this.entry.content)
       this.isExpanded = ! this.isExpanded
       if (this.isExpanded && ! this.apiQueried) {
         const params = {
@@ -106,13 +160,9 @@ export default {
         console.log('query', params)
         axios.get(this.$root.entriesApiUrl, { params })
           .then(res => {
-            console.log('res' , res.data.map(e => e.content))
             this.entry.entries.forEach(entry => {
               const newData = res.data.find(nEntry => entry.id === nEntry.id)
-              console.log(`%c ${entry.content} `, 'background-color: #aff')
-              console.log(entry.childrenQueried)
-              console.log(entry.entries.length)
-              console.log('newData.entries', entry.content, newData.entries.length)
+              entry.parent = this.entry
               entry.entries = []
               newData.entries.forEach(e => {
                 e.childrenQueried = false
@@ -121,7 +171,6 @@ export default {
               })
               entry.childrenQueried = true
             })
-            console.log('clicked entry.entries', this.entry.entries)
             this.apiQueried = true
           })
       }

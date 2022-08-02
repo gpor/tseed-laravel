@@ -14,7 +14,6 @@
 </template>
 
 <script>
-import Entry from '~/js/lib/Entry.js'
 
 export default {
   name: 'EntriesAccordion',
@@ -34,23 +33,21 @@ export default {
     entryObjs: [],
   }),
   created() {
-    // this.entryObjs = this.entries.map(entry => new Entry(entry)).sort((a, b) => a.pos - b.pos)
-    // console.log('this.entriesApiUrl', this.entriesApiUrl, this.$root.entriesApiUrl)
     this.$root.entriesApiUrl = this.entriesApiUrl;
     this.entries.forEach(entry => {
       entry.childrenQueried = true
+      entry.parent = null
       entry.entries.forEach(e => {
+        e.parent = entry
         e.childrenQueried = false
         e.entries = []
       })
       this.entryObjs.push(entry)
     })
-    console.log('this.entries', this.entryObjs)
     const prefersDarkMode = window.matchMedia("(prefers-color-scheme:dark)").matches
     if (prefersDarkMode) {
       document.body.classList.add('-dark-theme')
     }
-    console.log('prefersDarkMode', prefersDarkMode)
   },
 }
 </script>
