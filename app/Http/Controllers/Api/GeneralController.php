@@ -21,14 +21,10 @@ class GeneralController extends Controller
     public function insertEntry()
     {
         $pos = request('pos');
-
         $moved = Entry::find(request('moved'));
         $parent = Entry::find(request('parent'));
 
-        // dd($moved->content, $moved->parent_id, $parent->content);
-
         $oldSiblings = Entry::whereParentId($moved->parent_id)->where('user_id', auth()->user()->id)->orderBy('pos')->get();
-        // dd('$oldSiblings', $oldSiblings);
         $preMatch = true;
         $oldSiblingsLeftOver = [];
         foreach($oldSiblings as $i => $sib) {
@@ -64,10 +60,6 @@ class GeneralController extends Controller
         $moved->pos = $pos;
         $moved->parent_id = $parent->id;
         $moved->save();
-
-        // todo
-        // insert into $parent->entries at $pos
-
 
         return response()->json([
             'success' => true,
