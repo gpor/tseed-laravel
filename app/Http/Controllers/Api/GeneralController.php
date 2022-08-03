@@ -8,22 +8,6 @@ use Illuminate\Http\Request;
 
 class GeneralController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function entriesWithChildrenPrimary()
-    {
-        return response()->json(self::entriesView(config('entries.ids.primary')));
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function entriesWithChildren()
     {
         $rootId = request('rootId');
@@ -32,70 +16,37 @@ class GeneralController extends Controller
         }
         $entries = Entry::whereParentId($rootId)->with('entries')->get();
         return response()->json($entries);
-
     }
 
-    private function entriesView($id)
+    public function insertEntry()
     {
-        $rootEntry = Entry::find($id);
-        $entries = Entry::whereParentId($id)->with('entries')->get();
-        return view('entries', [
-          'entries' => $entries,
-          'rootEntry' => $rootEntry,
+        $pos = request('pos');
+
+        $moved = Entry::find(request('moved'));
+        $parent = Entry::find(request('parent'));
+
+        // dd($moved->content, $moved->parent_id, $parent->content);
+
+        $oldSiblings = Entry::where('parent_id', $moved->parent_id)->orderBy('pos')->get();
+        // dd('$oldSiblings', $oldSiblings);
+        $preMatch = true;
+        foreach($oldSiblings as $i => $sib) {
+            if ($preMatch) {
+                if ($sib->id === $moved->id) {
+                    $preMatch = false;
+                }
+            } else {
+                $sib->pos = $i - 1;
+                // todo update save
+            }
+        }
+
+        // todo
+        // insert into $parent->entries at $pos
+
+
+        return response()->json([
+            'success' => true,
         ]);
-    }
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
     }
 }

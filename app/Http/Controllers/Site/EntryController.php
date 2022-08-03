@@ -31,13 +31,8 @@ class EntryController extends Controller
 
     private function entriesView($id)
     {
-        // Sec-CH-Prefers-Color-Scheme
-        // dd($_SERVER);
-        // $headerStringValue = $_SERVER['HTTP_XXXXXX_XXXX'];
         $rootEntry = Entry::find($id);
-        $entries = Entry::whereParentId($id)->with('entries')->get();
         return view('entries', [
-          'entries' => $entries,
           'rootEntry' => $rootEntry,
         ]);
     }

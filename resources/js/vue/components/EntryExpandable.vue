@@ -19,7 +19,7 @@
         </div>
         <p
           v-if="entry.entries.length"
-          class="-children"
+          class="-child-count"
         >
           {{ entry.entries.length }}
         </p>
@@ -78,7 +78,11 @@
             ></Drop>
           </div>
         </div>
-        <div class="-entry"></div>
+        <div class="-entry">
+          <div class="-add-at-bottom">
+            <AddIcon />
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -90,6 +94,7 @@ import AddIcon from '~/js/vue/components/svg/AddIcon.vue'
 import Spinner from '~/js/vue/components/svg/Spinner.vue'
 import axios from 'axios'
 import { Drag, Drop } from "vue-easy-dnd";
+import { removeEntry, insertEntry } from '~/js/lib/mutations.js'
 
 export default {
   name: 'EntryExpandable',
@@ -129,8 +134,8 @@ export default {
     insertEntry(pos, e) {
       const dragged = e.data
       const parent = this.entry
-      dragged.parent.entries.splice(dragged.parent.entries.findIndex(e => e === dragged), 1)
-      parent.entries.splice(pos, 0, dragged)
+      removeEntry(dragged, dragged.parent)
+      insertEntry(dragged, parent, pos)
       console.log('insertEntry', pos, dragged.content, parent.content)
     },
     dropEntryOnEntry(e) {
@@ -148,6 +153,8 @@ export default {
       }
       console.log('found', found)
       if ( ! found) {
+        removeEntry(dragged, dragged.parent)
+        insertEntry(dragged, target)
         // move to target.entries
       }
     },

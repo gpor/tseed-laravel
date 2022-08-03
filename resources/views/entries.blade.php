@@ -11,7 +11,7 @@
         @endif
       </header>
       <entries-accordion
-        :entries="{{ json_encode($entries) }}"
+        :root-entry="{{ json_encode($rootEntry) }}"
         entries-api-url="{{ route('api.entries-with-children') }}"
       ></entries-accordion>
     </section>

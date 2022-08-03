@@ -1,7 +1,7 @@
 <template>
   <div class="entries-accordion">
     <div
-      v-for="(entry, i) in entryObjs"
+      v-for="(entry, i) in entries"
       :key="entry.id"
       class="-entry"
     >
@@ -20,8 +20,8 @@ export default {
   components: {
   },
   props: {
-    entries: {
-      type: Array,
+    rootEntry: {
+      type: Object,
       required: true,
     },
     entriesApiUrl: {
@@ -30,20 +30,26 @@ export default {
     },
   },
   data: () => ({
-    entryObjs: [],
+    entries: [],
   }),
   created() {
     this.$root.entriesApiUrl = this.entriesApiUrl;
-    this.entries.forEach(entry => {
-      entry.childrenQueried = true
-      entry.parent = null
-      entry.entries.forEach(e => {
-        e.parent = entry
-        e.childrenQueried = false
-        e.entries = []
+    const params = {
+      rootId: this.rootEntry.id,
+    }
+    axios.get(this.$root.entriesApiUrl, { params })
+      .then(res => {
+        res.data.forEach(entry => {
+          entry.childrenQueried = true
+          entry.parent = null
+          entry.entries.forEach(e => {
+            e.parent = entry
+            e.childrenQueried = false
+            e.entries = []
+          })
+          this.entries.push(entry)
+        })
       })
-      this.entryObjs.push(entry)
-    })
     const prefersDarkMode = window.matchMedia("(prefers-color-scheme:dark)").matches
     if (prefersDarkMode) {
       document.body.classList.add('-dark-theme')

@@ -15,4 +15,9 @@ class Entry extends Model
     {
         return $this->hasMany(Entry::class, 'parent_id');
     }
+
+    public function parent()
+    {
+        return $this->hasOne(Entry::class, 'id', 'parent_id');
+    }
 }
