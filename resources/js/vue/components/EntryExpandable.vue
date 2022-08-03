@@ -92,7 +92,6 @@
 import ChevDown from '~/js/vue/components/svg/ChevDown.vue'
 import AddIcon from '~/js/vue/components/svg/AddIcon.vue'
 import Spinner from '~/js/vue/components/svg/Spinner.vue'
-import axios from 'axios'
 import { Drag, Drop } from "vue-easy-dnd";
 import { removeEntry, insertEntry } from '~/js/lib/mutations.js'
 
@@ -164,7 +163,6 @@ export default {
         const params = {
           rootId: this.entry.id,
         }
-        console.log('query', params)
         axios.get(this.$root.entriesApiUrl, { params })
           .then(res => {
             this.entry.entries.forEach(entry => {

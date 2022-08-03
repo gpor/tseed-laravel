@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\GeneralController;
+use App\Http\Controllers\AuthController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,8 +15,15 @@ use App\Http\Controllers\Api\GeneralController;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+Route::post('/register', [AuthController::class, 'register'])->name('register');
+Route::post('/login', [AuthController::class, 'login'])->name('login');
 
-Route::get('/entries-with-children', [GeneralController::class, 'entriesWithChildren'])->name('api.entries-with-children');
+Route::group(['middleware' => ['auth:sanctum']], function() {
+    // routes here
+    Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+    Route::post('/insert-entry', [GeneralController::class, 'insertEntry'])->name('insert-entry');
+    Route::get('/entries-with-children', [GeneralController::class, 'entriesWithChildren'])->name('entries-with-children');
+});
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();

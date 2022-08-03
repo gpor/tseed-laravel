@@ -24,6 +24,7 @@
     --text-invert: #fff;
     --link-color: rgb(107, 122, 207);
     --link-color-hover: rgba(122, 142, 255);
+    --shadow-color: rgba(0,0,0,0.04);
 }
 .-dark-theme {
     --bg-main: #222;
@@ -36,5 +37,6 @@
     --text-invert: #000;
     --link-color: rgb(107, 122, 207);
     --link-color-hover: rgba(122, 142, 255);
+    --shadow-color: rgba(255,255,255,0.1);
 }
 </style>

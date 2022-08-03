@@ -21,11 +21,12 @@ const insertEntry = (entry, parentEntry, pos = null) => {
   }
   // todo - API call to update pos of all children
   // todo - API call to update entry
-  axios.post('/api/insert-entry', {
+  const data = {
     moved: entry.id,
     parent: parentEntry.id,
     pos,
-  })
+  }
+  axios.post('/api/insert-entry', data)
 }
 
 

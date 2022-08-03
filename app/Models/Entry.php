@@ -13,7 +13,7 @@ class Entry extends Model
 
     public function entries()
     {
-        return $this->hasMany(Entry::class, 'parent_id');
+        return $this->hasMany(Entry::class, 'parent_id')->orderBy('pos');
     }
 
     public function parent()

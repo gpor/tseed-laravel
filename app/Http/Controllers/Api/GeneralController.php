@@ -14,7 +14,7 @@ class GeneralController extends Controller
         if ( ! $rootId) {
             $rootId = config('entries.ids.primary');
         }
-        $entries = Entry::whereParentId($rootId)->with('entries')->get();
+        $entries = Entry::whereParentId($rootId)->whereUserId(auth()->user()->id)->with('entries')->orderBy('pos')->get();
         return response()->json($entries);
     }
 
@@ -27,19 +27,43 @@ class GeneralController extends Controller
 
         // dd($moved->content, $moved->parent_id, $parent->content);
 
-        $oldSiblings = Entry::where('parent_id', $moved->parent_id)->orderBy('pos')->get();
+        $oldSiblings = Entry::whereParentId($moved->parent_id)->where('user_id', auth()->user()->id)->orderBy('pos')->get();
         // dd('$oldSiblings', $oldSiblings);
         $preMatch = true;
+        $oldSiblingsLeftOver = [];
         foreach($oldSiblings as $i => $sib) {
             if ($preMatch) {
                 if ($sib->id === $moved->id) {
                     $preMatch = false;
+                } else {
+                    $oldSiblingsLeftOver[] = $sib;
                 }
             } else {
                 $sib->pos = $i - 1;
-                // todo update save
+                $oldSiblingsLeftOver[] = $sib;
+                $sib->save();
             }
         }
+
+        if ($moved->parent_id === $parent->id) {
+            $newSiblings = $oldSiblingsLeftOver;
+        } else {
+            $newSiblings = $parent->entries;
+        }
+        $postInserted = false;
+        foreach ($newSiblings as $i => $sib) {
+            if ($i === $pos) {
+                $postInserted = true;
+            }
+            if ($postInserted) {
+                $sib->pos = $i + 1;
+                $sib->save();
+            }
+        }
+
+        $moved->pos = $pos;
+        $moved->parent_id = $parent->id;
+        $moved->save();
 
         // todo
         // insert into $parent->entries at $pos
