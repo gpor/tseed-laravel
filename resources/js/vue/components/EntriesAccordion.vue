@@ -5,55 +5,66 @@
       :key="entry.id"
       class="-entry"
     >
-      <EntryExpandable
-        :entry="entry"
-        :i="i"
-      />
+      <div
+        v-if="i === 0"
+        class="-insert-zone"
+      >
+        <Drop
+          accepts-type="entry"
+          @drop="insertEntry(i, $event)"
+        ></Drop>
+      </div>
+      <Drag
+        :data="entry"
+        type="entry"
+      >
+        <EntryExpandable
+          :entry="entry"
+          :i="i"
+        />
+      </Drag>
+      <div
+        class="-insert-zone"
+      >
+        <Drop
+          accepts-type="entry"
+          @drop="insertEntry(i + 1, $event)"
+        ></Drop>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
+import { Drag, Drop } from "vue-easy-dnd";
+import { removeEntry, insertEntry } from '~/js/lib/mutations.js'
 
 export default {
   name: 'EntriesAccordion',
   components: {
+    Drop,
+    Drag,
   },
   props: {
-    rootEntry: {
-      type: Object,
+    entries: {
+      type: Array,
       required: true,
     },
-    entriesApiUrl: {
-      type: String,
+    parent: {
+      type: Object,
       required: true,
     },
   },
   data: () => ({
-    entries: [],
   }),
   created() {
-    this.$root.entriesApiUrl = this.entriesApiUrl;
-    const params = {
-      rootId: this.rootEntry.id,
-    }
-    axios.get(this.$root.entriesApiUrl, { params })
-      .then(res => {
-        res.data.forEach(entry => {
-          entry.childrenQueried = true
-          entry.parent = null
-          entry.entries.forEach(e => {
-            e.parent = entry
-            e.childrenQueried = false
-            e.entries = []
-          })
-          this.entries.push(entry)
-        })
-      })
-    const prefersDarkMode = window.matchMedia("(prefers-color-scheme:dark)").matches
-    if (prefersDarkMode) {
-      document.body.classList.add('-dark-theme')
-    }
+  },
+  methods: {
+    insertEntry(pos, e) {
+      const dragged = e.data
+      removeEntry(dragged, dragged.parent)
+      insertEntry(dragged, this.parent, pos)
+    },
   },
 }
 </script>

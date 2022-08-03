@@ -7,8 +7,6 @@ const removeEntry = (entry, parentEntry) => {
     return false
   }
   parentEntry.entries.splice(entry.parent.entries.findIndex(e => e === entry), 1)
-  // API call to update pos of all children ???
-  // insertEntry is called after this so can completely handle in one go
 }
 
 
@@ -19,8 +17,6 @@ const insertEntry = (entry, parentEntry, pos = null) => {
   } else {
     parentEntry.entries.splice(pos, 0, entry)
   }
-  // todo - API call to update pos of all children
-  // todo - API call to update entry
   const data = {
     moved: entry.id,
     parent: parentEntry.id,

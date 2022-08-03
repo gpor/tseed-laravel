@@ -10,10 +10,10 @@
           <h2>{{ $rootEntry->content }}</h1>
         @endif
       </header>
-      <entries-accordion
+      <accordion-container
         :root-entry="{{ json_encode($rootEntry) }}"
         entries-api-url="{{ route('api.entries-with-children') }}"
-      ></entries-accordion>
+      ></accordion-container>
     </section>
   </div>
 @endsection

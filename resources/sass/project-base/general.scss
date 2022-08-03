@@ -14,10 +14,10 @@ $stroke-med: 1px solid var(--stroke-color-med, #bbb);
 }
 @mixin element-pad-y($side: null) {
   @if ($side != bottom) {
-    @include a.clamp(6, 8, 'padding-top');
+    padding-top: 4px;
   }
   @if ($side != top) {
-    @include a.clamp(6, 8, 'padding-bottom');
+    padding-bottom: 4px;
   }
 }
 @mixin element-pad {
