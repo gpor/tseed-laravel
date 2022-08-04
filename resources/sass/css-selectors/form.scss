@@ -1,4 +1,6 @@
 @use '~/sass/agnostic/general.scss' as a;
+@use '~/sass/project-base/css-vars.scss' as *;
+@use '~/sass/project-base/typography.scss' as *;
 @use '~/sass/project-base/form.scss' as *;
 
 
@@ -34,10 +36,24 @@
             @include textarea;
         }
         .-err {
-            margin: 2px 0 0;
+            margin: 0;
             min-height: 30px;
+            color: $text-error;
+            font-size: 0.7rem;
+            font-weight: $font-body-weight-bold;
         }
-
+        &.-has-err {
+            #{a.$inputs} {
+                border-color: $text-error;
+            }
+        }
+    }
+    .-general-error {
+        margin: 5px 0;
+        height: 24px;
+        color: $text-error;
+        font-size: 0.8rem;
+        font-weight: $font-body-weight-bold;
     }
     .-actions {
         margin-top: 15px;

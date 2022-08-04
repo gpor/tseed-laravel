@@ -8,6 +8,18 @@
         <full-logo></full-logo>
       </a>
       <div
+        v-if="$root.auth.loggedIn"
+        class="show-account"
+      >
+        <p>{{ $root.auth.user.name }}</p>
+        <p
+          @click="$root.auth.logout()"
+        >
+          Logout
+        </p>
+      </div>
+      <div
+        v-else
         class="show-login-modal"
       >
         <p
@@ -31,7 +43,7 @@ export default {
   name: 'PageHeader',
   methods: {
     showLoginModal(registering) {
-      this.$root.pageModalSml.login(registering)
+      this.$root.pageModalSml.login(registering, this.$root.auth)
     },
   },
 }

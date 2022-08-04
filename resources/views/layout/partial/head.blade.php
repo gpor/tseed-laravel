@@ -25,6 +25,7 @@
     --stroke-color-med: #bbb;
     --text-main: #000;
     --text-invert: #fff;
+    --text-error: #d21;
     --link-color: rgb(107, 122, 207);
     --link-color-hover: rgba(122, 142, 255);
     --shadow-color: rgba(0,0,0,0.04);
@@ -42,6 +43,7 @@
     --stroke-color-med: #555;
     --text-main: #fff;
     --text-invert: #000;
+    --text-error: #e54;
     --link-color: rgb(107, 122, 207);
     --link-color-hover: rgba(122, 142, 255);
     --shadow-color: rgba(255,255,255,0.1);

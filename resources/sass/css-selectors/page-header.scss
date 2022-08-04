@@ -20,12 +20,13 @@
         }
       }
     }
-    .show-login-modal {
+    .show-login-modal, .show-account {
       display: inline-flex;
       flex-direction: column;
       gap: 4px;
       p {
         cursor: pointer;
+        text-align: right;
         margin: 0;
         font-weight: $font-body-weight-bold;
         color: $bg-invert2;

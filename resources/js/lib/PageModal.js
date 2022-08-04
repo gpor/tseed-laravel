@@ -24,11 +24,15 @@ class PageModalSml extends Base {
     super()
     this.isSmall = true
   }
-  login(registering) {
+  login(registering, auth) {
     this.componentName = 'LoginModal'
     this.closeCallback = null
     this.innerData = {
       registeringInit: registering,
+      auth,
+      success: () => {
+        this.close()
+      },
     }
   }
 }
