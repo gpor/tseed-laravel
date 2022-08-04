@@ -14,8 +14,17 @@ class GeneralController extends Controller
         if ( ! $rootId) {
             $rootId = config('entries.ids.primary');
         }
-        $entries = Entry::whereParentId($rootId)->whereUserId(auth()->user()->id)->with('entries')->orderBy('pos')->get();
+        $entries = Entry::whereParentId($rootId)->whereUserId(self::userId())->with('entries')->orderBy('pos')->get();
         return response()->json($entries);
+    }
+    
+    private static function userId()
+    {
+        if (config('dev.bypassAuth')) {
+            return 1;
+        } else {
+            return auth()->user()->id;
+        }
     }
 
     public function insertEntry()
@@ -24,7 +33,7 @@ class GeneralController extends Controller
         $moved = Entry::find(request('moved'));
         $parent = Entry::find(request('parent'));
 
-        $oldSiblings = Entry::whereParentId($moved->parent_id)->where('user_id', auth()->user()->id)->orderBy('pos')->get();
+        $oldSiblings = Entry::whereParentId($moved->parent_id)->whereUserId(self::userId())->orderBy('pos')->get();
         $preMatch = true;
         $oldSiblingsLeftOver = [];
         foreach($oldSiblings as $i => $sib) {

@@ -5,6 +5,9 @@ window.Vue = Vue;
 import axios from 'axios';
 window.axios = axios;
 
+Vue.component('TypeSeedApp', () => import('./vue/components/TypeSeedApp.vue'))
+Vue.component('PageHeader', () => import('./vue/components/PageHeader.vue'))
+Vue.component('AccordionWithHeader', () => import('./vue/components/AccordionWithHeader.vue'))
 Vue.component('AccordionContainer', () => import('./vue/components/AccordionContainer.vue'))
 Vue.component('EntriesAccordion', () => import('./vue/components/EntriesAccordion.vue'))
 Vue.component('EntryExpandable', () => import('./vue/components/EntryExpandable.vue'))

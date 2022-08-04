@@ -18,16 +18,11 @@ export default {
       type: Object,
       required: true,
     },
-    entriesApiUrl: {
-      type: String,
-      required: true,
-    },
   },
   data: () => ({
     entries: [],
   }),
   created() {
-    this.$root.entriesApiUrl = this.entriesApiUrl;
     this.rootEntry.entries = this.entries
     const params = {
       rootId: this.rootEntry.id,
@@ -45,10 +40,6 @@ export default {
           this.entries.push(entry)
         })
       })
-    const prefersDarkMode = window.matchMedia("(prefers-color-scheme:dark)").matches
-    if (prefersDarkMode) {
-      document.body.classList.add('-dark-theme')
-    }
   },
 }
 </script>
