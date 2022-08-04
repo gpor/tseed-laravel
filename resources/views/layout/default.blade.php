@@ -4,13 +4,10 @@
         @include('layout.partial.head')
     </head>
     <body
-        class="layout-default @if($darkTheme ?? false) -dark-theme @endif"
+        class="layout-default"
     >
         <div id="vue-app">
-            <type-seed-app
-                :root-entries="{{ json_encode([$rootEntry]) }}"
-                entries-api-url="{{ route('api.entries-with-children') }}"
-            ></type-seed-app>
+            @yield('content')
         </div>
         <script src="/js/app.js"></script>
     </body>

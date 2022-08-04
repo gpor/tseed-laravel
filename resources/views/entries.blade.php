@@ -1,19 +1,8 @@
 @extends('layout.default')
 
 @section('content')
-  <div class="center-frame">
-    <section class="page-section -entries">
-      <header>
-        @if ($rootEntry->content === 'Primary')
-          <h2>Your Notes</h1>
-        @else
-          <h2>{{ $rootEntry->content }}</h1>
-        @endif
-      </header>
-      <accordion-container
-        :root-entry="{{ json_encode($rootEntry) }}"
-        entries-api-url="{{ route('api.entries-with-children') }}"
-      ></accordion-container>
-    </section>
-  </div>
+  <type-seed-app
+      :root-entries="{{ json_encode([$rootEntry]) }}"
+      entries-api-url="{{ route('api.entries-with-children') }}"
+  ></type-seed-app>
 @endsection

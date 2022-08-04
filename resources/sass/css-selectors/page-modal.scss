@@ -1,0 +1,58 @@
+@use '~/sass/agnostic/general.scss' as a;
+@use '~/sass/project-base/css-vars.scss' as *;
+
+.page-modal {
+    @include a.inset;
+    @include a.flex(center);
+    background-color: rgba(0,0,0,0.3);
+    position: fixed;
+    z-index: 150;
+    .-window {
+        display: inline-block;
+        width: 90%;
+        max-width: 1400px;
+        padding: clamp(18px, 4.5vw, 45px) clamp(20px, 5vw, 50px);
+        border-radius: 5px;
+        position: relative;
+        // margin-bottom: clamp(1px, 30vh - 80px, 100px);
+        &, .-close {
+            background-color: $bg-main;
+        }
+        .-close {
+            @include a.flex(center);
+            position: absolute;
+            top: -30px;
+            right: -30px;
+            width: 40px;
+            height: 40px;
+            border-radius: 99px;
+            cursor: pointer;
+            svg {
+                @include a.transit;
+                width: 20px;
+                opacity: 0.3;
+                fill: $text-main;
+            }
+            &:hover {
+                svg {
+                    opacity: 0.7;
+                }
+            }
+        }
+        .modal-inner {
+            .-title-line {
+                @include a.flex;
+                margin: -5px 0 25px;
+                > h3 {
+                    margin: 0;
+                }
+            }
+        }
+    }
+    &.-sml {
+        .-window {
+            max-width: 500px;
+        }
+    }
+}
+

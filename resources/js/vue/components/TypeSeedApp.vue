@@ -8,13 +8,24 @@
         :root-entry="rootEntry"
       />
     </div>
+    <transition name="fade">
+      <PageModal
+        v-if="$root.pageModalSml.innerData"
+        :is-small="true"
+        :page-modal="$root.pageModalSml"
+      />
+    </transition>
   </main>
 </template>
 
 <script>
+import PageModal from '~/js/vue/components/PageModal'
 
 export default {
   name: 'TypeSeedApp',
+  components: {
+    PageModal,
+  },
   props: {
     rootEntries: {
       type: Array,

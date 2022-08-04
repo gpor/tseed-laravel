@@ -4,6 +4,7 @@ import Vue from 'vue';
 window.Vue = Vue;
 import axios from 'axios';
 window.axios = axios;
+import { PageModalSml } from '~/js/lib/PageModal.js';
 
 Vue.component('TypeSeedApp', () => import('./vue/components/TypeSeedApp.vue'))
 Vue.component('PageHeader', () => import('./vue/components/PageHeader.vue'))
@@ -15,9 +16,12 @@ Vue.component('FullLogo', () => import('./vue/components/svg/FullLogo.vue'))
 
 axios.defaults.headers.common['Authorization'] = 'Bearer 1|EijeIwoFdbR2tyoCyTE0mpsIu1OeKbtm3IK9XRpm'
 
+const pageModalSml = new PageModalSml
+
 const app = new Vue({
   el: '#vue-app',
   data: () => ({
+    pageModalSml,
     entriesApiUrl: '',
   }),
 });

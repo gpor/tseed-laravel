@@ -1,2 +1,13 @@
+@use '~/sass/agnostic/general.scss' as a;
 
 
+.fade-enter-active,
+.fade-leave-active {
+    @include a.transit(opacity, 0.3s, ease-out);
+}
+
+.fade-enter-from,
+.fade-enter,
+.fade-leave-to {
+    opacity: 0;
+}
