@@ -1,7 +1,7 @@
 <template>
   <div
     class="page-modal"
-    :class="{'-sml': isSmall}"
+    :class="{'-sml': pageModal.isSmall}"
     @click="pageModal.close()"
   >
     <div
@@ -35,10 +35,6 @@ export default {
     pageModal: {
       type: Object,
       required: true,
-    },
-    isSmall: {
-      type: Boolean,
-      default: false,
     },
   },
   data() {

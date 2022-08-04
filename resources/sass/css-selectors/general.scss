@@ -1,13 +1,22 @@
 @use '~/sass/agnostic/general.scss' as a;
+@use '~/sass/project-base/css-vars.scss' as *;
+@use '~/sass/project-base/buttons.scss' as *;
 
 
 .fade-enter-active,
 .fade-leave-active {
-    @include a.transit(opacity, 0.3s, ease-out);
+  @include a.transit(opacity, 0.3s, ease-out);
 }
 
 .fade-enter-from,
 .fade-enter,
 .fade-leave-to {
-    opacity: 0;
+  opacity: 0;
+}
+
+
+button {
+  @include button-base;
+  @include button-size-med;
+  @include button-bg-strong($bg-invert2, $bg-invert2-strong);
 }

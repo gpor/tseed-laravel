@@ -11,7 +11,6 @@
     <transition name="fade">
       <PageModal
         v-if="$root.pageModalSml.innerData"
-        :is-small="true"
         :page-modal="$root.pageModalSml"
       />
     </transition>

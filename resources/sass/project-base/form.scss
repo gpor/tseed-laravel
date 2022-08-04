@@ -1,0 +1,28 @@
+
+@mixin input-and-select {
+    display: block;
+    height: 40px;
+    border: none;
+    border-bottom: 1px solid #ccc;
+    border-radius: 0;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    background-color: transparent;
+    &:focus {
+        outline: none;
+    }
+}
+
+@mixin input {
+    @include input-and-select;
+}
+
+@mixin select {
+    @include input-and-select;
+}
+
+@mixin textarea {
+    @include input-and-select;
+}
+

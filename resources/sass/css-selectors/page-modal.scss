@@ -4,7 +4,7 @@
 .page-modal {
     @include a.inset;
     @include a.flex(center);
-    background-color: rgba(0,0,0,0.3);
+    background-color: $overlay-color;
     position: fixed;
     z-index: 150;
     .-window {
@@ -14,7 +14,6 @@
         padding: clamp(18px, 4.5vw, 45px) clamp(20px, 5vw, 50px);
         border-radius: 5px;
         position: relative;
-        // margin-bottom: clamp(1px, 30vh - 80px, 100px);
         &, .-close {
             background-color: $bg-main;
         }

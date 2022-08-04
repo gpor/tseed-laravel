@@ -1,0 +1,29 @@
+@use './typography' as *;
+@use '~/sass/project-base/css-vars.scss' as *;
+
+
+@mixin button-base {
+  display: inline-block;
+  line-height: 1;
+  padding: 0.4em 1.6em;
+  border-radius: 0.15em;
+  border-width: 1px;
+  cursor: pointer;
+}
+
+@mixin button-size-med {
+  @include p;
+}
+
+@mixin button-bg-strong($bg, $bg-strong) {
+  background-color: $bg;
+  border-color: $bg;
+  color: $text-invert;
+  font-weight: $font-body-weight-bold;
+  transition: all 0.2s linear;
+  &:hover {
+    background-color: $bg-strong;
+    border-color: $bg-strong;
+    color: $text-invert;
+  }
+}

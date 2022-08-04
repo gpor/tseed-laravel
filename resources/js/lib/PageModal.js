@@ -7,6 +7,7 @@ class Base {
     this.innerData = null
     this.closeCallback = null
     this.closeCallbackPayload = {}
+    this.isSmall = false
   }
   close() {
     this.innerData = null
@@ -19,11 +20,15 @@ class Base {
 
 
 class PageModalSml extends Base {
-  login(confirmCallback) {
+  constructor() {
+    super()
+    this.isSmall = true
+  }
+  login(registering) {
     this.componentName = 'LoginModal'
     this.closeCallback = null
     this.innerData = {
-      confirmCallback,
+      registeringInit: registering,
     }
   }
 }

@@ -9,9 +9,17 @@
       </a>
       <div
         class="show-login-modal"
-        @click="showLoginModal"
       >
-        <p>Login</p>
+        <p
+          @click="showLoginModal(false)"
+        >
+          Login
+        </p>
+        <p
+          @click="showLoginModal(true)"
+        >
+          Register
+        </p>
       </div>
     </div>
   </header>
@@ -22,10 +30,8 @@
 export default {
   name: 'PageHeader',
   methods: {
-    showLoginModal() {
-      this.$root.pageModalSml.login(() => {
-        console.log('closed')
-      })
+    showLoginModal(registering) {
+      this.$root.pageModalSml.login(registering)
     },
   },
 }

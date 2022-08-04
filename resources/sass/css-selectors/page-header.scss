@@ -1,13 +1,14 @@
 @use '~/sass/agnostic/general.scss' as a;
 @use '~/sass/project-base/css-vars.scss' as *;
 @use '~/sass/project-base/general.scss' as *;
+@use '~/sass/project-base/typography' as *;
 
 .page-header {
   @include a.clamp(30, 50, 'margin-bottom');
   width: 100%;
   border-bottom: $stroke-faint;
   .center-frame {
-    @include a.space-between-center;
+    @include a.flex;
     @include a.pad-y(10px);
     a.-logo {
       @include element-pad;
@@ -16,6 +17,21 @@
         @include a.clamp(70, 120, 'width');
         path {
           stroke: $text-main;
+        }
+      }
+    }
+    .show-login-modal {
+      display: inline-flex;
+      flex-direction: column;
+      gap: 4px;
+      p {
+        cursor: pointer;
+        margin: 0;
+        font-weight: $font-body-weight-bold;
+        color: $bg-invert2;
+        transition: color 0.2s linear;
+        &:hover {
+          color: $bg-invert2-strong;
         }
       }
     }
