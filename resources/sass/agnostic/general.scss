@@ -49,7 +49,7 @@ $p-els: 'p, li, td, th';
 }
 
 
-@mixin page-gutter-agnostic($side, $frame-max, $min-gutter: 3vw) {
+@mixin page-gutter-agnostic($side, $frame-max, $min-gutter: 3.5vw) {
   padding-#{$side}: clamp(#{$min-gutter}, 50vw - #{math.div($frame-max, 2)}, 50vw)
 }
 

@@ -6,6 +6,7 @@ import axios from 'axios'
 window.axios = axios
 import Auth from '~/js/lib/Auth.js'
 import { PageModalSml } from '~/js/lib/PageModal.js'
+import AccordionPanels from '~/js/lib/AccordionPanels.js'
 
 Vue.component('TypeSeedApp', () => import('./vue/components/TypeSeedApp.vue'))
 Vue.component('PageHeader', () => import('./vue/components/PageHeader.vue'))
@@ -18,7 +19,7 @@ Vue.component('FullLogo', () => import('./vue/components/svg/FullLogo.vue'))
 
 const auth = new Auth
 const pageModalSml = new PageModalSml
-
+const accordionPanels = new AccordionPanels
 
 
 new Vue({
@@ -26,6 +27,7 @@ new Vue({
   data: () => ({
     auth,
     pageModalSml,
+    accordionPanels,
   }),
   methods: {
     entriesApiCall(rootId) {

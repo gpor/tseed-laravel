@@ -53,10 +53,11 @@ export default {
   },
   data() {
     return {
-      accordionPanels: this.rootEntries.map(entry => new AccordionPanel(entry)),
+      accordionPanels: this.rootEntries.map((entry, i) => new AccordionPanel(entry, this.$root.accordionPanels, i)),
     }
   },
   created() {
+    this.$root.accordionPanels.panels = this.accordionPanels
     const prefersDarkMode = window.matchMedia("(prefers-color-scheme:dark)").matches
     if (prefersDarkMode) {
       document.body.classList.add('-dark-theme')

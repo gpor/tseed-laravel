@@ -3,6 +3,7 @@
     <entries-accordion
       :entries="entries"
       :parent="panel.rootEntry"
+      :panel="panel"
     />
   </div>
 </template>

@@ -15,7 +15,25 @@ class EntryController extends Controller
      */
     public function index()
     {
-        return self::entriesView(config('entries.ids.primary'));
+        // dd(request()->get('panels'));
+        $entriesQ = request()->get('panels');
+        // panels=1_1-4_1
+        if ($entriesQ) {
+            $ids = [];
+            $panels = explode('_', $entriesQ);
+            foreach ($panels as $panel) {
+                $ids[] = explode('-', $panel)[0];
+            }
+        } else {
+            $ids = [config('entries.ids.primary')];
+        }
+        $entries = [];
+        foreach ($ids as $id) {
+            $entries[] = Entry::find($id);
+        }
+        return view('entries', [
+          'entries' => $entries,
+        ]);
     }
 
     /**

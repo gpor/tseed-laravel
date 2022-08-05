@@ -47,6 +47,7 @@
         v-show="isExpanded"
         :entries="entry.entries"
         :parent="entry"
+        :panel="panel"
       />
     </div>
   </div>
@@ -76,6 +77,10 @@ export default {
       type: Number,
       required: true,
     },
+    panel: {
+      type: Object,
+      required: true,
+    },
   },
   data: ()=>({
     isExpanded: false,
@@ -91,6 +96,9 @@ export default {
         e.childrenQueried = false
       }
     })
+    if (this.panel.expanded.has(this.entry.id)) {
+      this.expand()
+    }
   },
   methods: {
     dropEntryOnEntry(e) {
@@ -111,6 +119,11 @@ export default {
     },
     expand() {
       this.isExpanded = ! this.isExpanded
+      if (this.isExpanded) {
+        this.panel.expand(this.entry.id)
+      } else {
+        this.panel.fold(this.entry.id)
+      }
       if (this.isExpanded && ! this.apiQueried) {
         this.$root.entriesApiCall(this.entry.id)
           .then(res => {

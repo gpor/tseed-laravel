@@ -21,6 +21,7 @@
         <EntryExpandable
           :entry="entry"
           :i="i"
+          :panel="panel"
         />
       </Drag>
       <div
@@ -51,6 +52,10 @@ export default {
       required: true,
     },
     parent: {
+      type: Object,
+      required: true,
+    },
+    panel: {
       type: Object,
       required: true,
     },

@@ -87,7 +87,7 @@
         > .-line {
           pointer-events: none;
           position: absolute;
-          left: 22px;
+          left: 4px;
           bottom: 15px;
           width: 12px;
           top: 0;
@@ -133,8 +133,8 @@
         > .dnd-drop {
           position: absolute;
           top: -10px;
+          left: 0;
           height: 20px;
-          left: 15px;
           right: 60px;
           border-radius: 5px;
           transition: background-color 0.2s linear;
