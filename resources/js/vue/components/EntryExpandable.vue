@@ -112,10 +112,7 @@ export default {
     expand() {
       this.isExpanded = ! this.isExpanded
       if (this.isExpanded && ! this.apiQueried) {
-        const params = {
-          rootId: this.entry.id,
-        }
-        axios.get(this.$root.entriesApiUrl, { params })
+        this.$root.entriesApiCall(this.entry.id)
           .then(res => {
             this.entry.entries.forEach(entry => {
               const newData = res.data.find(nEntry => entry.id === nEntry.id)

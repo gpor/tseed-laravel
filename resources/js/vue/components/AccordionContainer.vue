@@ -2,7 +2,7 @@
   <div class="accordion-container">
     <entries-accordion
       :entries="entries"
-      :parent="rootEntry"
+      :parent="panel.rootEntry"
     />
   </div>
 </template>
@@ -14,7 +14,7 @@ export default {
   components: {
   },
   props: {
-    rootEntry: {
+    panel: {
       type: Object,
       required: true,
     },
@@ -23,11 +23,8 @@ export default {
     entries: [],
   }),
   created() {
-    this.rootEntry.entries = this.entries
-    const params = {
-      rootId: this.rootEntry.id,
-    }
-    axios.get(this.$root.entriesApiUrl, { params })
+    this.panel.rootEntry.entries = this.entries
+    this.$root.entriesApiCall(this.panel.rootEntry.id)
       .then(res => {
         res.data.forEach(entry => {
           entry.childrenQueried = true

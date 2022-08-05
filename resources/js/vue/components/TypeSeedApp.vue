@@ -50,10 +50,6 @@ export default {
       type: Array,
       required: true,
     },
-    entriesApiUrl: {
-      type: String,
-      required: true,
-    },
   },
   data() {
     return {
@@ -61,7 +57,6 @@ export default {
     }
   },
   created() {
-    this.$root.entriesApiUrl = this.entriesApiUrl;
     const prefersDarkMode = window.matchMedia("(prefers-color-scheme:dark)").matches
     if (prefersDarkMode) {
       document.body.classList.add('-dark-theme')

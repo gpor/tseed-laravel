@@ -26,6 +26,11 @@ new Vue({
   data: () => ({
     auth,
     pageModalSml,
-    entriesApiUrl: '',
   }),
+  methods: {
+    entriesApiCall(rootId) {
+      const params = { rootId }
+      return axios.get('/api/entries-with-children', { params })
+    },
+  },
 });

@@ -11,6 +11,5 @@ if (false) {
 @section('content')
   <type-seed-app
       :root-entries="{{ json_encode($entries) }}"
-      entries-api-url="{{ route('api.entries-with-children') }}"
   ></type-seed-app>
 @endsection
