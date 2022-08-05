@@ -6,10 +6,10 @@ $stroke-med: 1px solid var(--stroke-color-med, #bbb);
 
 @mixin element-pad-x($side: null) {
   @if ($side != right) {
-    @include a.clamp(15, 20, 'padding-left');
+    padding-left: 0;
   }
   @if ($side != left) {
-    @include a.clamp(15, 20, 'padding-right');
+    padding-right: 0;
   }
 }
 @mixin element-pad-y($side: null) {
