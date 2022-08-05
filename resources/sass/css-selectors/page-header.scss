@@ -4,7 +4,7 @@
 @use '~/sass/project-base/typography' as *;
 
 .page-header {
-  @include a.clamp(30, 50, 'margin-bottom');
+  @include a.clamp(40, 70, 'margin-bottom');
   width: 100%;
   border-bottom: $stroke-faint;
   .center-frame {

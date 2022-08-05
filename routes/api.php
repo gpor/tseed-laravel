@@ -22,8 +22,8 @@ Route::group(['middleware' => ['auth:sanctum']], function() {
     // routes here
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
     Route::post('/insert-entry', [GeneralController::class, 'insertEntry'])->name('insert-entry');
+    Route::get('/entries-with-children', [GeneralController::class, 'entriesWithChildren'])->name('entries-with-children');
 });
-Route::get('/entries-with-children', [GeneralController::class, 'entriesWithChildren'])->name('entries-with-children');
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();

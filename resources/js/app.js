@@ -9,7 +9,7 @@ import { PageModalSml } from '~/js/lib/PageModal.js'
 
 Vue.component('TypeSeedApp', () => import('./vue/components/TypeSeedApp.vue'))
 Vue.component('PageHeader', () => import('./vue/components/PageHeader.vue'))
-Vue.component('AccordionWithHeader', () => import('./vue/components/AccordionWithHeader.vue'))
+Vue.component('AccordionPanel', () => import('./vue/components/AccordionPanel.vue'))
 Vue.component('AccordionContainer', () => import('./vue/components/AccordionContainer.vue'))
 Vue.component('EntriesAccordion', () => import('./vue/components/EntriesAccordion.vue'))
 Vue.component('EntryExpandable', () => import('./vue/components/EntryExpandable.vue'))

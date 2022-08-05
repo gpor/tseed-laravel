@@ -1,6 +1,28 @@
 <template>
   <div class="login-modal">
-    <h3>{{ registering ? 'Register' : 'Login' }}</h3>
+    <header>
+      <h2>{{ registering ? 'Register' : 'Login' }}</h2>
+      <div
+        v-if="registering"
+      >
+        <p>Already registered?</p>
+        <p>
+          <a
+            @click.prevent="registering = false"
+          >Login</a>
+        </p>
+      </div>
+      <div
+        v-else
+      >
+        <p>Not registered?</p>
+        <p>
+          <a
+            @click.prevent="registering = true"
+          >Register</a>
+        </p>
+      </div>
+    </header>
     <form
       class="form"
       @submit.prevent="submit"

@@ -60,7 +60,25 @@
     }
 }
 .login-modal {
-    h3 {
-        margin-bottom: 1.4em;
+    header {
+        @include a.flex;
+        margin-bottom: 60px;
+        h2 {
+            margin: 0;
+        }
+        > div {
+            display: inline-flex;
+            flex-direction: column;
+            gap: 2px;
+            p {
+                margin: 0;
+                text-align: right;
+                font-size: 0.9rem;
+                a {
+                    font-size: 1rem;
+                    font-weight: $font-body-weight-bold;
+                }
+            }
+        }
     }
 }

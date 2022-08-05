@@ -12,10 +12,30 @@ body {
 
 section.page-section {
   @include a.clamp(20, 30, 'gap');
-  display: grid;
-  grid-template-columns: 1fr;
-  max-width: 500px;
+  &.-accordions-panels {
+    .center-frame {
+      display: grid;
+      gap: 30px;
+      grid-template-columns: repeat(auto-fill, 500px);
+    }
+    @media (max-width: 1150px) {
+      .center-frame {
+        grid-template-columns: 1fr;
+      }
+    }
+  }
+  &.-login-or-register {
+    .center-frame {
+      .login-modal {
+        max-width: 500px;
+      }
+    }
+  }
+}
+
+.accordion-panel {
   header {
     @include element-pad-x;
+    margin-bottom: 20px;
   }
 }

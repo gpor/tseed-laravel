@@ -1,15 +1,15 @@
 <template>
-  <section class="page-section -entries">
+  <section class="accordion-panel">
     <header>
-      <h2 v-if="rootEntry.content === 'Primary'">
+      <h2 v-if="panel.rootEntry.content === 'Primary'">
         Your Notes
       </h2>
       <h2 v-else>
-        {{ rootEntry.content }}
+        {{ panel.rootEntry.content }}
       </h2>
     </header>
     <accordion-container
-      :root-entry="rootEntry"
+      :root-entry="panel.rootEntry"
     ></accordion-container>
   </section>
 </template>
@@ -17,9 +17,9 @@
 <script>
 
 export default {
-  name: 'AccordionWithHeader',
+  name: 'AccordionPanel',
   props: {
-    rootEntry: {
+    panel: {
       type: Object,
       required: true,
     },
