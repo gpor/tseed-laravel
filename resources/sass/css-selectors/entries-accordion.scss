@@ -24,6 +24,18 @@
           display: inline-flex;
           gap: 10px;
           align-items: center;
+          .-editing {
+            margin: -4px -6px;
+            [type='text'] {
+              border: 1px solid $stroke-color-med;
+              font-weight: $font-body-weight-normal;
+              padding: 4px 6px;
+              &:focus {
+                outline: none;
+                border-color: $bg-invert1;
+              }
+            }
+          }
           p {
             display: inline-block;
             margin: 0;

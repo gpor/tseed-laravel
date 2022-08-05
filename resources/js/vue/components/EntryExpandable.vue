@@ -9,7 +9,22 @@
       @drop="dropEntryOnEntry"
     >
       <div class="-left">
-        <p class="-content">
+        <div
+          v-if="isEditing"
+          class="-editing"
+        >
+          <input
+            ref="contentInput"
+            v-model="editedContent"
+            type="text"
+            @blur="leaveInput"
+          />
+        </div>
+        <p
+          v-else
+          class="-content"
+          @click="edit"
+        >
           {{ entry.content }}
         </p>
         <div
@@ -85,6 +100,8 @@ export default {
   data: ()=>({
     isExpanded: false,
     apiQueried: false,
+    isEditing: false,
+    editedContent: '',
   }),
   created() {
     this.entry.entries.forEach(e => {
@@ -101,6 +118,17 @@ export default {
     }
   },
   methods: {
+    edit() {
+      this.isEditing = true
+      this.editedContent = this.entry.content
+      Vue.nextTick(() => {
+        this.$refs.contentInput.focus()
+      })
+    },
+    leaveInput() {
+      this.entry.content = this.editedContent
+      this.isEditing = false
+    },
     dropEntryOnEntry(e) {
       const dragged = e.data
       const target = this.entry
