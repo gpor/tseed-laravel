@@ -1,25 +1,43 @@
 
+const STORED_TOKEN_NAME = 'sanctum-token'
 export default class {
   constructor() {
     this.user = new User
     this.loginForm = new LoginForm
     this.loggedIn = false
-    // this.token = ''
+
+    const storedToken = window.localStorage.getItem(STORED_TOKEN_NAME)
+    if (storedToken) {
+      this.fetchUser(storedToken)
+    }
+  }
+  fetchUser(token) {
+    axios.defaults.headers.common['Authorization'] = `Bearer ${token}`
+    axios.get('/api/user')
+      .then(res => {
+        this.setAsLoggedIn({ user: res.data })
+      })
+      .catch(err => {
+        console.log('failed get request to /api/user', err, err.response)
+      })
   }
   setAsLoggedIn({ token, user }) {
     this.user.fill(user)
     this.loggedIn = true
-    axios.defaults.headers.common['Authorization'] = `Bearer ${token}`
+    if (token) {
+      axios.defaults.headers.common['Authorization'] = `Bearer ${token}`
+      window.localStorage.setItem(STORED_TOKEN_NAME, token)
+    }
   }
   setAsLoggedOut() {
     this.user.empty()
     this.loggedIn = false
     axios.defaults.headers.common['Authorization'] = null
+    window.localStorage.removeItem(STORED_TOKEN_NAME)
   }
   logout() {
-    console.log('Auth::logout()')
     axios.post('/api/logout')
-      .then(res => {
+      .then(() => {
         this.setAsLoggedOut()
       })
       .catch(console.error)
@@ -31,10 +49,8 @@ export default class {
       return data
     }, {})
     if ( ! this.checkFilled({ fields })) {
-      console.log('MISSING')
       return false
     }
-    console.log('carrying on??')
     if (registering) {
       if (data.password !== data.password_confirmation) {
         fields.find(f => f.name === 'password_confirmation').err = 'Must match password'
@@ -69,12 +85,10 @@ export default class {
     } else {
       axios.post('/api/login', data)
         .then(res => {
-          // console.log('login', res, res.data)
           this.setAsLoggedIn(res.data)
           success()
         })
-        .catch(err => {
-          console.log('NO login', err)
+        .catch(() => {
           this.loginForm.generalError = 'Sorry, these credentials are invalid'
         })
     }
@@ -85,7 +99,6 @@ export default class {
     if (typeof fields === 'undefined') {
       fields = this.loginForm.fieldsFor(registering)
     }
-    console.log('checking fields', fields)
     fields.forEach((field, j) => {
       if (typeof i === 'undefined' || j <= i) {
         if (field.val === '') {
