@@ -8,6 +8,7 @@
       <div
         v-if="i === 0"
         class="-insert-zone"
+        @click="create(i)"
       >
         <Drop
           accepts-type="entry"
@@ -26,6 +27,7 @@
       </Drag>
       <div
         class="-insert-zone"
+        @click="create(i + 1)"
       >
         <Drop
           accepts-type="entry"
@@ -71,6 +73,20 @@ export default {
         removeEntry(dragged, dragged.parent)
         insertEntry(dragged, this.parent, pos)
       }
+    },
+    create(pos) {
+      console.log('pos', pos)
+      const entry = {
+        id: 0,
+        content: '',
+        pos,
+        parent: this.parent,
+        entries: [],
+        childrenQueried: true,
+        isEditing: true,
+      }
+
+      this.parent.entries.splice(pos, 0, entry)
     },
   },
 }

@@ -120,6 +120,9 @@ export default {
     if (this.panel.expanded.has(this.entry.id)) {
       this.expand()
     }
+    if (this.entry.isEditing) {
+      this.isEditing = true
+    }
   },
   methods: {
     edit() {

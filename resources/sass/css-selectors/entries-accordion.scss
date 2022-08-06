@@ -151,6 +151,7 @@
     > .-entry {
       > .-insert-zone {
         position: relative;
+        cursor: w-resize;
         > .dnd-drop {
           position: absolute;
           top: -10px;

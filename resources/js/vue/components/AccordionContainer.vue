@@ -29,7 +29,7 @@ export default {
       .then(res => {
         res.data.forEach(entry => {
           entry.childrenQueried = true
-          entry.parent = this.rootEntry
+          entry.parent = this.panel.rootEntry
           entry.entries.forEach(e => {
             e.parent = entry
             e.childrenQueried = false
