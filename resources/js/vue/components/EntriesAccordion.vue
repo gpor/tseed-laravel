@@ -67,8 +67,10 @@ export default {
   methods: {
     insertEntry(pos, e) {
       const dragged = e.data
-      removeEntry(dragged, dragged.parent)
-      insertEntry(dragged, this.parent, pos)
+      if (dragged.id !== this.parent.id) {
+        removeEntry(dragged, dragged.parent)
+        insertEntry(dragged, this.parent, pos)
+      }
     },
   },
 }

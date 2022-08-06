@@ -1,7 +1,7 @@
 <template>
   <div
     class="entry-expandable"
-    :class="{'-expanded': isExpanded}"
+    :class="{'-expanded': isExpanded && entry.entries.length}"
   >
     <Drop
       class="-head"
@@ -18,6 +18,7 @@
             v-model="editedContent"
             type="text"
             @blur="leaveInput"
+            @keydown="inputKey"
           />
         </div>
         <p
@@ -59,7 +60,7 @@
     <div class="-body">
       <div class="-line" />
       <entries-accordion
-        v-show="isExpanded"
+        v-show="isExpanded && entry.entries.length"
         :entries="entry.entries"
         :parent="entry"
         :panel="panel"
@@ -125,6 +126,19 @@ export default {
         this.$refs.contentInput.focus()
       })
     },
+    inputKey(e) {
+      const key = e.key
+      console.log('key', key)
+      if (key === 'Escape') {
+        this.leaveInput()
+      } else if (key === 'Enter') {
+        
+      } else if (key === 'ArrowUp') {
+        
+      } else if (key === 'ArrowDown') {
+        
+      }
+    },
     leaveInput() {
       this.entry.content = this.editedContent
       this.isEditing = false
@@ -140,6 +154,7 @@ export default {
         }
         parent = parent.parent
       }
+      console.log('found', found)
       if ( ! found) {
         removeEntry(dragged, dragged.parent)
         insertEntry(dragged, target)

@@ -4,74 +4,31 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\Entry;
+use App\Services\EntryService;
 use Illuminate\Http\Request;
 
 class GeneralController extends Controller
 {
-    public function entriesWithChildren()
+    public function entriesWithChildren(Request $request)
     {
-        $rootId = request('rootId');
+        $rootId = $request->get('rootId');
         if ( ! $rootId) {
             $rootId = config('entries.ids.primary');
         }
-        $entries = Entry::whereParentId($rootId)->whereUserId(self::userId())->with('entries')->orderBy('pos')->get();
-        return response()->json($entries);
+        return response()->json(EntryService::entriesWithChildren($rootId));
     }
     
-    private static function userId()
+
+    public function insertEntry(Request $request)
     {
-        if (config('dev.bypassAuth')) {
-            return 1;
-        } else {
-            return auth()->user()->id;
-        }
-    }
-
-    public function insertEntry()
-    {
-        $pos = request('pos');
-        $moved = Entry::find(request('moved'));
-        $parent = Entry::find(request('parent'));
-
-        $oldSiblings = Entry::whereParentId($moved->parent_id)->whereUserId(self::userId())->orderBy('pos')->get();
-        $preMatch = true;
-        $oldSiblingsLeftOver = [];
-        foreach($oldSiblings as $i => $sib) {
-            if ($preMatch) {
-                if ($sib->id === $moved->id) {
-                    $preMatch = false;
-                } else {
-                    $oldSiblingsLeftOver[] = $sib;
-                }
-            } else {
-                $sib->pos = $i - 1;
-                $oldSiblingsLeftOver[] = $sib;
-                $sib->save();
-            }
-        }
-
-        if ($moved->parent_id === $parent->id) {
-            $newSiblings = $oldSiblingsLeftOver;
-        } else {
-            $newSiblings = $parent->entries;
-        }
-        $postInserted = false;
-        foreach ($newSiblings as $i => $sib) {
-            if ($i === $pos) {
-                $postInserted = true;
-            }
-            if ($postInserted) {
-                $sib->pos = $i + 1;
-                $sib->save();
-            }
-        }
-
-        $moved->pos = $pos;
-        $moved->parent_id = $parent->id;
-        $moved->save();
+        $success = EntryService::insertEntry(
+            Entry::find($request->get('moved')),
+            Entry::find($request->get('parent')),
+            $request->get('pos')
+        );
 
         return response()->json([
-            'success' => true,
+            'success' => $success,
         ]);
     }
 }

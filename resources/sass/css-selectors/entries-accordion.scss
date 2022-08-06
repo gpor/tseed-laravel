@@ -145,10 +145,10 @@
         > .dnd-drop {
           position: absolute;
           top: -10px;
-          left: 0;
+          left: -8px;
           height: 20px;
           right: 60px;
-          border-radius: 5px;
+          border-radius: 99px;
           transition: background-color 0.2s linear;
           &:hover {
             background-color: $shadow-color;
