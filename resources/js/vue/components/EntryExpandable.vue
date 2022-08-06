@@ -19,8 +19,6 @@
             tag="p"
             spellcheck="false"
             tabindex="0"
-            @click="edit"
-            @blur="leaveInput"
             @keydown="inputKey"
           >
             {{ editedContent }}
@@ -123,15 +121,22 @@ export default {
       this.expand()
     }
     if (this.entry.isEditing) {
-      this.isEditing = true
+      this.setEditingFlag(true)
       this.focusInput()
     }
   },
   methods: {
+    setEditingFlag(val) {
+      this.isEditing = val
+      this.$root.isEditing = val
+    },
     edit() {
-      this.isEditing = true
-      this.editedContent = this.entry.content
-      this.focusInput()
+      console.log('this.isEditing', this.isEditing)
+      if ( ! this.isEditing) {
+        this.setEditingFlag(true)
+        this.editedContent = this.entry.content
+        this.focusInput()
+      }
     },
     focusInput() {
       Vue.nextTick(() => {
@@ -141,28 +146,38 @@ export default {
     },
     inputKey(e) {
       const key = e.key
-      console.log('key', key)
+      // console.log('key', key)
       if (key === 'Escape') {
         this.leaveInput()
       } else if (key === 'Enter') {
         e.preventDefault()
       } else if (key === 'ArrowUp') {
-        e.preventDefault()
+        // e.preventDefault()
       } else if (key === 'ArrowDown') {
+        // e.preventDefault()
+      } else if (key === 'Tab') {
         e.preventDefault()
       }
     },
     leaveInput() {
       console.log('leaveInput')
       this.entry.content = this.editedContent
-      this.isEditing = false
       if (this.entry.id === 0) {
         if (this.editedContent === '') {
-          // discard this.entry
+          const siblings = this.entry.parent.entries
+          siblings.splice(siblings.findIndex(entry => entry === this.entry), 1)
+          this.setEditingFlag(false)
         } else {
-          // api call to create
+          axios.post('/api/create-entry', {
+            content: this.editedContent,
+            parent: this.entry.parent.id,
+            pos: this.entry.pos,
+          }).then(res => {
+            this.setEditingFlag(false)
+          })
         }
       } else {
+        // todo
         // api call to update
       }
     },
@@ -177,7 +192,6 @@ export default {
         }
         parent = parent.parent
       }
-      console.log('found', found)
       if ( ! found) {
         removeEntry(dragged, dragged.parent)
         insertEntry(dragged, target)

@@ -12,6 +12,7 @@ Route::post('/login', [AuthController::class, 'login']);
 Route::group(['middleware' => ['auth:sanctum']], function() {
     Route::post('/logout', [AuthController::class, 'logout']);
     Route::post('/insert-entry', [GeneralController::class, 'insertEntry']);
+    Route::post('/create-entry', [GeneralController::class, 'createEntry']);
     Route::get('/entries-with-children', [GeneralController::class, 'entriesWithChildren']);
 });
 

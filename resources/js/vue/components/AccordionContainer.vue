@@ -1,5 +1,8 @@
 <template>
-  <div class="accordion-container">
+  <div
+    class="accordion-container"
+    :class="{'-is-editing': $root.isEditing}"
+  >
     <entries-accordion
       :entries="entries"
       :parent="panel.rootEntry"

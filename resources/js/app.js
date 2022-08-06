@@ -31,6 +31,7 @@ new Vue({
     auth,
     pageModalSml,
     accordionPanels,
+    isEditing: false,
   }),
   methods: {
     entriesApiCall(rootId) {

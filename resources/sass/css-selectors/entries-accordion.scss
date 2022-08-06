@@ -179,4 +179,14 @@
     }
   }
 }
-
+.accordion-container {
+  &.-is-editing {
+    .entries-accordion {
+      > .-entry {
+        > .-insert-zone {
+          pointer-events: none;
+        }
+      }
+    }
+  }
+}

@@ -18,6 +18,7 @@
       <Drag
         :data="entry"
         type="entry"
+        :disabled="$root.isEditing"
       >
         <EntryExpandable
           :entry="entry"

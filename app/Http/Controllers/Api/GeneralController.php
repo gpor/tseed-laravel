@@ -17,7 +17,7 @@ class GeneralController extends Controller
         }
         return response()->json(EntryService::entriesWithChildren($rootId));
     }
-    
+
 
     public function insertEntry(Request $request)
     {
@@ -30,5 +30,25 @@ class GeneralController extends Controller
         return response()->json([
             'success' => $success,
         ]);
+    }
+
+    public function createEntry(Request $request)
+    {
+        $pos = $request->get('pos');
+        $parentId = $request->get('parent');
+        $success = EntryService::insertEntry(
+            Entry::create([
+                'content' => $request->get('content'),
+                'parent_id' => $parentId,
+                'pos' => $pos,
+            ]),
+            Entry::find($parentId),
+            $pos
+        );
+
+        return response()->json([
+            'success' => $success,
+        ]);
+
     }
 }
