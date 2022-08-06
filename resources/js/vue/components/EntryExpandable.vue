@@ -1,7 +1,7 @@
 <template>
   <div
     class="entry-expandable"
-    :class="{'-expanded': isExpanded && entry.entries.length}"
+    :class="{'-expanded': isExpanded && entry.entries.length, '-is-editing': isEditing}"
   >
     <Drop
       class="-head"
@@ -13,13 +13,16 @@
           v-if="isEditing"
           class="-editing"
         >
-          <input
+          <contenteditable
             ref="contentInput"
             v-model="editedContent"
-            type="text"
+            tag="p"
+            spellcheck="false"
             @blur="leaveInput"
             @keydown="inputKey"
-          />
+          >
+            {{ editedContent }}
+          </contenteditable>
         </div>
         <p
           v-else
@@ -123,7 +126,8 @@ export default {
       this.isEditing = true
       this.editedContent = this.entry.content
       Vue.nextTick(() => {
-        this.$refs.contentInput.focus()
+        this.$refs.contentInput.$el.focus()
+        this.selectElementContents(this.$refs.contentInput.$el)
       })
     },
     inputKey(e) {
@@ -183,6 +187,13 @@ export default {
             this.apiQueried = true
           })
       }
+    },
+    selectElementContents(el) {
+      const range = document.createRange();
+      range.selectNodeContents(el);
+      const sel = window.getSelection();
+      sel.removeAllRanges();
+      sel.addRange(range);
     },
   },
 }

@@ -8,6 +8,9 @@ import Auth from '~/js/lib/Auth.js'
 import { PageModalSml } from '~/js/lib/PageModal.js'
 import AccordionPanels from '~/js/lib/AccordionPanels.js'
 
+import contenteditable from 'vue-contenteditable'
+Vue.use(contenteditable)
+
 Vue.component('TypeSeedApp', () => import('./vue/components/TypeSeedApp.vue'))
 Vue.component('PageHeader', () => import('./vue/components/PageHeader.vue'))
 Vue.component('AccordionPanel', () => import('./vue/components/AccordionPanel.vue'))

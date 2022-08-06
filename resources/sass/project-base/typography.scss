@@ -99,7 +99,7 @@ $font-body-weight-bold: 500;
 @mixin h6($margins: false, $color: true) {
   @include a.font-size(1, 1.1);
   @include font-family-body;
-  line-height: 1.56;
+  line-height: 1.5;
   @if ($color == true) {
     @include text-color-main;
   }
@@ -108,9 +108,9 @@ $font-body-weight-bold: 500;
   }
 }
 @mixin p($margins: false, $color: true) {
-  @include a.font-size(0.9, 1);
+  @include a.font-size(0.8, 0.9);
   @include font-family-body;
-  line-height: 1.75;
+  line-height: 1.6;
   @if ($color == true) {
     @include text-color-main;
   }

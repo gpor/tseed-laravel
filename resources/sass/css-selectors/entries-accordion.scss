@@ -26,7 +26,7 @@
           align-items: center;
           .-editing {
             margin: -4px -6px;
-            [type='text'] {
+            p {
               border: 1px solid $stroke-color-med;
               font-weight: $font-body-weight-normal;
               padding: 4px 6px;
@@ -127,6 +127,15 @@
             border: $stroke-faint;
             border-right: none;
             border-top: none;
+          }
+        }
+      }
+      &.-is-editing {
+        .-head {
+          .-right {
+            .-chev, .-add {
+              opacity: 0;
+            }
           }
         }
       }
