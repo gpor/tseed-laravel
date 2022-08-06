@@ -20,13 +20,17 @@
         @include element-pad;
         @include a.space-between;
         user-select: none;
+        cursor: auto;
         .-left {
           display: inline-flex;
           gap: 10px;
           align-items: center;
+          width: 100%;
           .-editing {
+            width: 100%;
             margin: -4px -6px;
             p {
+              width: 100%;
               border: 1px solid $stroke-color-med;
               font-weight: $font-body-weight-normal;
               padding: 4px 6px;
@@ -151,17 +155,24 @@
     > .-entry {
       > .-insert-zone {
         position: relative;
-        cursor: w-resize;
+        cursor: copy;
         > .dnd-drop {
           position: absolute;
-          top: -10px;
+          top: -6px;
           left: -8px;
-          height: 20px;
+          height: 12px;
           right: 60px;
           border-radius: 99px;
           transition: background-color 0.2s linear;
           &:hover {
             background-color: $shadow-color;
+          }
+        }
+      }
+      &:last-child {
+        > .-insert-zone {
+          > .dnd-drop {
+            height: 30px;
           }
         }
       }

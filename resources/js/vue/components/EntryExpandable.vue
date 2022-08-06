@@ -18,6 +18,8 @@
             v-model="editedContent"
             tag="p"
             spellcheck="false"
+            tabindex="0"
+            @click="edit"
             @blur="leaveInput"
             @keydown="inputKey"
           >
@@ -122,12 +124,16 @@ export default {
     }
     if (this.entry.isEditing) {
       this.isEditing = true
+      this.focusInput()
     }
   },
   methods: {
     edit() {
       this.isEditing = true
       this.editedContent = this.entry.content
+      this.focusInput()
+    },
+    focusInput() {
       Vue.nextTick(() => {
         this.$refs.contentInput.$el.focus()
         this.selectElementContents(this.$refs.contentInput.$el)
@@ -139,16 +145,26 @@ export default {
       if (key === 'Escape') {
         this.leaveInput()
       } else if (key === 'Enter') {
-        
+        e.preventDefault()
       } else if (key === 'ArrowUp') {
-        
+        e.preventDefault()
       } else if (key === 'ArrowDown') {
-        
+        e.preventDefault()
       }
     },
     leaveInput() {
+      console.log('leaveInput')
       this.entry.content = this.editedContent
       this.isEditing = false
+      if (this.entry.id === 0) {
+        if (this.editedContent === '') {
+          // discard this.entry
+        } else {
+          // api call to create
+        }
+      } else {
+        // api call to update
+      }
     },
     dropEntryOnEntry(e) {
       const dragged = e.data
