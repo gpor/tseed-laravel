@@ -12,9 +12,12 @@ export default class {
     }
   }
   title() {
-    return (this.rootEntry.content === 'Primary')
+    return this.isPrimary()
       ? 'Home'
       : this.rootEntry.content
+  }
+  isPrimary() {
+    return this.rootEntry.content === 'Primary';
   }
   expand(id) {
     this.expanded.add(id)

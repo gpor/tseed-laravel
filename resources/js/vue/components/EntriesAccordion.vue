@@ -36,6 +36,16 @@
         ></Drop>
       </div>
     </div>
+    <div
+      v-if="parent === panel.rootEntry && entries.length === 0"
+      class="-add-first"
+    >
+      <button
+        @click="addFirst"
+      >
+        Add a top level entry
+      </button>
+    </div>
   </div>
 </template>
 
@@ -81,6 +91,13 @@ export default {
         pos,
         0,
         this.$root.newEntry(this.parent, pos)
+      )
+    },
+    addFirst() {
+      this.parent.entries.splice(
+        0,
+        0,
+        this.$root.newEntry(this.parent, 0)
       )
     },
   },
