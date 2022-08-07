@@ -55,6 +55,7 @@
         <div
           v-else
           class="-add"
+          @click="addChild"
         >
           <AddIcon />
         </div>
@@ -117,7 +118,7 @@ export default {
         e.childrenQueried = false
       }
     })
-    if (this.panel.expanded.has(this.entry.id)) {
+    if (this.panel.expanded.has(this.entry.id) && this.entry.entries.length) {
       this.expand()
     }
     if (this.entry.isEditing) {
@@ -129,14 +130,22 @@ export default {
     setEditingFlag(val) {
       this.isEditing = val
       this.$root.isEditing = val
+      this.entry.isEditing = val
     },
     edit() {
-      console.log('this.isEditing', this.isEditing)
+      // console.log('this.isEditing', this.isEditing)
       if ( ! this.isEditing) {
         this.setEditingFlag(true)
         this.editedContent = this.entry.content
         this.focusInput()
       }
+    },
+    addChild() {
+      // console.log('addChild')
+      const newEntry = this.$root.newEntry(this.entry, this.entry.entries.length)
+      newEntry.isEditing = true
+      this.entry.entries.push(newEntry)
+      this.expand()
     },
     focusInput() {
       Vue.nextTick(() => {
@@ -152,17 +161,10 @@ export default {
       } else if (key === 'Enter') {
         this.leaveInput()
         const nextPos = this.entry.pos + 1
-        const id = (this.entry.id > 0)
-          ? 0
-          : this.entry.id - 1
         this.entry.parent.entries.splice(
           nextPos,
           0,
-          this.$root.newEntry({
-            id,
-            parent: this.entry.parent,
-            pos: nextPos,
-          })
+          this.$root.newEntry(this.entry.parent, nextPos)
         )
 
         e.preventDefault()
@@ -195,10 +197,10 @@ export default {
           siblings.splice(siblings.findIndex(entry => entry === this.entry), 1)
           this.setEditingFlag(false)
         } else {
-          console.log('EntryExpandable leaveInput() createEntry')
+          // console.log('EntryExpandable leaveInput() createEntry')
           createEntry(this.entry).then(res => {
             this.entry.id = res.data.id
-            console.log('this.entry.id', this.entry.id)
+            // console.log('this.entry.id', this.entry.id)
             this.setEditingFlag(false)
           })
         }
@@ -232,14 +234,19 @@ export default {
           .then(res => {
             this.entry.entries.forEach(entry => {
               const newData = res.data.find(nEntry => entry.id === nEntry.id)
-              entry.parent = this.entry
-              entry.entries = newData.entries.map(data => ({
-                ...data,
-                childrenQueried: false,
-                existsInDb: true,
-                entries: [],
-              }))
-              entry.childrenQueried = true
+              if (newData) {
+                entry.parent = this.entry
+                entry.entries = newData.entries.map(data => ({
+                  ...data,
+                  key: data.id,
+                  childrenQueried: false,
+                  existsInDb: true,
+                  entries: [],
+                }))
+                entry.childrenQueried = true
+              } else {
+                console.log('skipping child', entry.key)
+              }
             })
             this.apiQueried = true
           })

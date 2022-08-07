@@ -34,11 +34,13 @@ export default {
           entry.childrenQueried = true
           entry.parent = this.panel.rootEntry
           entry.existsInDb = true
+          entry.key = entry.id
           entry.entries.forEach(e => {
             e.parent = entry
             e.childrenQueried = false
             e.entries = []
             e.existsInDb = true
+            e.key = e.id
           })
           this.entries.push(entry)
         })

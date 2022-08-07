@@ -32,16 +32,27 @@ new Vue({
     pageModalSml,
     accordionPanels,
     isEditing: false,
+    newEntryNextKey: 0,
   }),
   methods: {
     entriesApiCall(rootId) {
       const params = { rootId }
-      console.log('apiUrlBase', apiUrlBase)
+      // console.log('apiUrlBase', apiUrlBase)
       return axios.get(apiUrlBase + '/api/entries-with-children', { params })
     },
-    newEntry(data) {
+    newEntry(parent, pos) {
+      return this._newEntry({
+        id: this.newEntryNextKey--,
+        parent,
+        parent_id: parent.id,
+        pos,
+      })
+    },
+    _newEntry(data) {
+      // console.log('%c app.js newEntry(data)', 'background-color: #ffc')
+      // console.log('data.id:', data.id)
       return {
-        id: 0,
+        key: data.id,
         content: '',
         entries: [],
         childrenQueried: true,

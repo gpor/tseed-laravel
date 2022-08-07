@@ -34,6 +34,7 @@
         :class="{'-has-err': field.err.length}"
       >
         <input
+          ref="inp"
           v-model="field.val"
           :type="field.type"
           :placeholder="field.label"
@@ -75,6 +76,11 @@ export default {
   data() {
     return {
       registering: this.registeringInit,
+    }
+  },
+  mounted() {
+    if (this.$refs.inp.length) {
+      this.$refs.inp[0].focus()
     }
   },
   methods: {

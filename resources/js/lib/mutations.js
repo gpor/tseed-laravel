@@ -30,6 +30,9 @@ const insertEntry = (entry, parentEntry, pos = null) => {
 }
 
 const createEntry = (entry) => {
+  // console.log('%c mutations.js createEntry(entry)', 'background-color: #dff')
+  // console.log('entry.key', entry.key)
+  // console.log('entry.id', entry.id)
   return axios.post(apiUrlBase + '/api/create-entry', {
     content: entry.content,
     parent: entry.parent.id,

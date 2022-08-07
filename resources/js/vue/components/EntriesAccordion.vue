@@ -2,7 +2,7 @@
   <div class="entries-accordion">
     <div
       v-for="(entry, i) in entries"
-      :key="entry.id"
+      :key="entry.key"
       class="-entry"
     >
       <div
@@ -80,10 +80,7 @@ export default {
       this.parent.entries.splice(
         pos,
         0,
-        this.$root.newEntry({
-          parent: this.parent,
-          pos,
-        })
+        this.$root.newEntry(this.parent, pos)
       )
     },
   },
