@@ -150,15 +150,7 @@ export default {
       if (key === 'Escape') {
         this.leaveInput()
       } else if (key === 'Enter') {
-
         this.leaveInput()
-        // console.log('EntryExpandable inputKey() createEntry')
-        // createEntry(this.entry)
-        //   .then(res => {
-        //     console.log('created?', res)
-        //   })
-        // create a new one
-        // need to add to parent
         const nextPos = this.entry.pos + 1
         this.entry.parent.entries.splice(
           nextPos,

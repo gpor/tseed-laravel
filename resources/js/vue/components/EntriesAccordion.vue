@@ -69,6 +69,7 @@ export default {
   },
   methods: {
     insertEntry(pos, e) {
+      // console.log('EntriesAccordion insertEntry()', pos)
       const dragged = e.data
       if (dragged.id !== this.parent.id) {
         removeEntry(dragged, dragged.parent)

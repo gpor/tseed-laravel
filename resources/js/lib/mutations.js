@@ -16,6 +16,8 @@ const insertEntry = (entry, parentEntry, pos = null) => {
   } else {
     parentEntry.entries.splice(pos, 0, entry)
   }
+  entry.parent = parentEntry
+  entry.pos = pos
   const data = {
     moved: entry.id,
     parent: parentEntry.id,

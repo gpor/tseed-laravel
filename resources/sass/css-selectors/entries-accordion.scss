@@ -96,6 +96,13 @@
             }
           }
         }
+        html.drag-in-progress &:hover {
+          .-left {
+            p {
+              color: $bg-invert1;
+            }
+          }
+        }
       }
       .-body {
         padding-left: 30px;
@@ -170,9 +177,21 @@
         }
       }
       &:last-child {
-        > .-insert-zone {
+        > .-insert-zone:last-child {
           > .dnd-drop {
             height: 30px;
+          }
+        }
+      }
+      .dnd-drag {
+        &.drag-source {
+          opacity: 0.5;
+          .entry-expandable {
+            .-head {
+              p {
+                color: $text-main !important;
+              }
+            }
           }
         }
       }
