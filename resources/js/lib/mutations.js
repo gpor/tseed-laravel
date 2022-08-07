@@ -23,14 +23,14 @@ const insertEntry = (entry, parentEntry, pos = null) => {
     parent: parentEntry.id,
     pos,
   }
-  axios.post('/api/insert-entry', data)
+  axios.post(apiUrlBase + '/api/insert-entry', data)
     .then(res => {
       entry.existsInDb = true
     })
 }
 
 const createEntry = (entry) => {
-  return axios.post('/api/create-entry', {
+  return axios.post(apiUrlBase + '/api/create-entry', {
     content: entry.content,
     parent: entry.parent.id,
     pos: entry.pos,
@@ -38,7 +38,7 @@ const createEntry = (entry) => {
 }
 
 const updateEntry = (entry) => {
-  return axios.patch('/api/update-entry', entry)
+  return axios.patch(apiUrlBase + '/api/update-entry', entry)
 }
 
 

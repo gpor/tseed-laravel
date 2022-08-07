@@ -36,7 +36,8 @@ new Vue({
   methods: {
     entriesApiCall(rootId) {
       const params = { rootId }
-      return axios.get('/api/entries-with-children', { params })
+      console.log('apiUrlBase', apiUrlBase)
+      return axios.get(apiUrlBase + '/api/entries-with-children', { params })
     },
     newEntry(data) {
       return {

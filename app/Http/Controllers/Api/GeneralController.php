@@ -36,18 +36,17 @@ class GeneralController extends Controller
     {
         $pos = $request->get('pos');
         $parentId = $request->get('parent');
+        $newEntry = Entry::create([
+            'content' => $request->get('content'),
+            'parent_id' => $parentId,
+            'pos' => $pos,
+        ]);
         $success = EntryService::insertEntry(
-            Entry::create([
-                'content' => $request->get('content'),
-                'parent_id' => $parentId,
-                'pos' => $pos,
-            ]),
+            $newEntry,
             Entry::find($parentId),
             $pos
         );
-        return response()->json([
-            'success' => $success,
-        ]);
+        return response()->json($newEntry);
     }
 
     public function updateEntry(Request $request)

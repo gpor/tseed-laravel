@@ -9,6 +9,7 @@
         <div id="vue-app">
             @yield('content')
         </div>
+        <script>window.apiUrlBase = '{{ config('app.api_url_base') }}'</script>
         <script src="/js/app.js"></script>
     </body>
 </html>

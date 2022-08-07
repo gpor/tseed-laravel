@@ -197,6 +197,8 @@ export default {
         } else {
           console.log('EntryExpandable leaveInput() createEntry')
           createEntry(this.entry).then(res => {
+            this.entry.id = res.data.id
+            console.log('this.entry.id', this.entry.id)
             this.setEditingFlag(false)
           })
         }

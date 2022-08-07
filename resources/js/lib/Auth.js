@@ -13,7 +13,7 @@ export default class {
   }
   fetchUser(token) {
     axios.defaults.headers.common['Authorization'] = `Bearer ${token}`
-    axios.get('/api/user')
+    axios.get(apiUrlBase + '/api/user')
       .then(res => {
         this.setAsLoggedIn({ user: res.data })
       })
@@ -36,7 +36,7 @@ export default class {
     window.localStorage.removeItem(STORED_TOKEN_NAME)
   }
   logout() {
-    axios.post('/api/logout')
+    axios.post(apiUrlBase + '/api/logout')
       .then(() => {
         this.setAsLoggedOut()
       })
@@ -58,7 +58,7 @@ export default class {
       }
     }
     if (registering) {
-      axios.post('/api/register', data)
+      axios.post(apiUrlBase + '/api/register', data)
         .then(res => {
           console.log('registered', data)
           this.setAsLoggedIn(res.data)
@@ -83,7 +83,7 @@ export default class {
           this.loginForm.generalError = 'Sorry, ' + err.response?.data?.message
         })
     } else {
-      axios.post('/api/login', data)
+      axios.post(apiUrlBase + '/api/login', data)
         .then(res => {
           this.setAsLoggedIn(res.data)
           success()
