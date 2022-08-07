@@ -77,7 +77,7 @@ import ChevDown from '~/js/vue/components/svg/ChevDown.vue'
 import AddIcon from '~/js/vue/components/svg/AddIcon.vue'
 import Spinner from '~/js/vue/components/svg/Spinner.vue'
 import { Drop } from "vue-easy-dnd";
-import { removeEntry, insertEntry, createEntry } from '~/js/lib/mutations.js'
+import { removeEntry, insertEntry, createEntry, updateEntry } from '~/js/lib/mutations.js'
 
 export default {
   name: 'EntryExpandable',
@@ -152,11 +152,14 @@ export default {
       } else if (key === 'Enter') {
         this.leaveInput()
         const nextPos = this.entry.pos + 1
+        const id = (this.entry.id > 0)
+          ? 0
+          : this.entry.id - 1
         this.entry.parent.entries.splice(
           nextPos,
           0,
           this.$root.newEntry({
-            id: this.entry.id - 1,
+            id,
             parent: this.entry.parent,
             pos: nextPos,
           })
@@ -172,16 +175,19 @@ export default {
       }
     },
     leaveInput() {
-      console.log('leaveInput')
-      const noChange = this.entry.content === this.editedContent
+      // console.log('leaveInput')
+      const hasChange = this.entry.content !== this.editedContent
       this.entry.content = this.editedContent
       if (this.entry.existsInDb) {
-        if (noChange) {
-          console.log('no change')
+        if (hasChange) {
+          updateEntry({
+            id: this.entry.id,
+            content: this.entry.content,
+          }).then(res => {
+            this.setEditingFlag(false)
+          })
         } else {
-          console.log('todo update')
-          // todo
-          // api call to update
+          this.setEditingFlag(false)
         }
       } else {
         if (this.editedContent === '') {
@@ -228,6 +234,7 @@ export default {
               entry.entries = newData.entries.map(data => ({
                 ...data,
                 childrenQueried: false,
+                existsInDb: true,
                 entries: [],
               }))
               entry.childrenQueried = true

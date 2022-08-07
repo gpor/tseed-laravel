@@ -37,6 +37,10 @@ const createEntry = (entry) => {
   })
 }
 
+const updateEntry = (entry) => {
+  return axios.patch('/api/update-entry', entry)
+}
+
 
 
 
@@ -44,5 +48,6 @@ const createEntry = (entry) => {
 export {
   removeEntry,
   insertEntry,
-  createEntry
+  createEntry,
+  updateEntry
 }

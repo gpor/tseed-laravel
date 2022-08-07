@@ -33,10 +33,12 @@ export default {
         res.data.forEach(entry => {
           entry.childrenQueried = true
           entry.parent = this.panel.rootEntry
+          entry.existsInDb = true
           entry.entries.forEach(e => {
             e.parent = entry
             e.childrenQueried = false
             e.entries = []
+            e.existsInDb = true
           })
           this.entries.push(entry)
         })

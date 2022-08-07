@@ -45,10 +45,19 @@ class GeneralController extends Controller
             Entry::find($parentId),
             $pos
         );
-
         return response()->json([
             'success' => $success,
         ]);
+    }
 
+    public function updateEntry(Request $request)
+    {
+        $success = EntryService::updateEntry(
+            $request->get('id'),
+            $request->except('id')
+        );
+        return response()->json([
+            'success' => $success,
+        ]);
     }
 }

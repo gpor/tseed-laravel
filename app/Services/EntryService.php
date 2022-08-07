@@ -14,7 +14,7 @@ class EntryService
             ->orderBy('pos')
             ->get();
     }
-    
+
     private static function userId()
     {
         if (config('dev.bypassAuth')) {
@@ -23,7 +23,16 @@ class EntryService
             return auth()->user()->id;
         }
     }
-    
+
+    public static function updateEntry($id, $data)
+    {
+        $entry = Entry::find($id);
+        foreach ($data as $fName => $val) {
+            $entry->$fName = $val;
+        }
+        return $entry->save();
+    }
+
     public static function insertEntry($moved, $parent, $pos)
     {
         $oldSiblings = Entry::whereParentId($moved->parent_id)->whereUserId(self::userId())->orderBy('pos')->get();
