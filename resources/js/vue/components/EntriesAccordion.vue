@@ -76,18 +76,14 @@ export default {
       }
     },
     create(pos) {
-      console.log('pos', pos)
-      const entry = {
-        id: 0,
-        content: '',
+      this.parent.entries.splice(
         pos,
-        parent: this.parent,
-        entries: [],
-        childrenQueried: true,
-        isEditing: true,
-      }
-
-      this.parent.entries.splice(pos, 0, entry)
+        0,
+        this.$root.newEntry({
+          parent: this.parent,
+          pos,
+        })
+      )
     },
   },
 }

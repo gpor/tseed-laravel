@@ -77,7 +77,7 @@ import ChevDown from '~/js/vue/components/svg/ChevDown.vue'
 import AddIcon from '~/js/vue/components/svg/AddIcon.vue'
 import Spinner from '~/js/vue/components/svg/Spinner.vue'
 import { Drop } from "vue-easy-dnd";
-import { removeEntry, insertEntry } from '~/js/lib/mutations.js'
+import { removeEntry, insertEntry, createEntry } from '~/js/lib/mutations.js'
 
 export default {
   name: 'EntryExpandable',
@@ -150,6 +150,26 @@ export default {
       if (key === 'Escape') {
         this.leaveInput()
       } else if (key === 'Enter') {
+
+        this.leaveInput()
+        // console.log('EntryExpandable inputKey() createEntry')
+        // createEntry(this.entry)
+        //   .then(res => {
+        //     console.log('created?', res)
+        //   })
+        // create a new one
+        // need to add to parent
+        const nextPos = this.entry.pos + 1
+        this.entry.parent.entries.splice(
+          nextPos,
+          0,
+          this.$root.newEntry({
+            id: this.entry.id - 1,
+            parent: this.entry.parent,
+            pos: nextPos,
+          })
+        )
+
         e.preventDefault()
       } else if (key === 'ArrowUp') {
         // e.preventDefault()
@@ -161,24 +181,27 @@ export default {
     },
     leaveInput() {
       console.log('leaveInput')
+      const noChange = this.entry.content === this.editedContent
       this.entry.content = this.editedContent
-      if (this.entry.id === 0) {
+      if (this.entry.existsInDb) {
+        if (noChange) {
+          console.log('no change')
+        } else {
+          console.log('todo update')
+          // todo
+          // api call to update
+        }
+      } else {
         if (this.editedContent === '') {
           const siblings = this.entry.parent.entries
           siblings.splice(siblings.findIndex(entry => entry === this.entry), 1)
           this.setEditingFlag(false)
         } else {
-          axios.post('/api/create-entry', {
-            content: this.editedContent,
-            parent: this.entry.parent.id,
-            pos: this.entry.pos,
-          }).then(res => {
+          console.log('EntryExpandable leaveInput() createEntry')
+          createEntry(this.entry).then(res => {
             this.setEditingFlag(false)
           })
         }
-      } else {
-        // todo
-        // api call to update
       }
     },
     dropEntryOnEntry(e) {

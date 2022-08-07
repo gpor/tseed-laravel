@@ -38,5 +38,16 @@ new Vue({
       const params = { rootId }
       return axios.get('/api/entries-with-children', { params })
     },
+    newEntry(data) {
+      return {
+        id: 0,
+        content: '',
+        entries: [],
+        childrenQueried: true,
+        isEditing: true,
+        existsInDb: false,
+        ...data,
+      }
+    },
   },
 });

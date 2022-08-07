@@ -22,6 +22,17 @@ const insertEntry = (entry, parentEntry, pos = null) => {
     pos,
   }
   axios.post('/api/insert-entry', data)
+    .then(res => {
+      entry.existsInDb = true
+    })
+}
+
+const createEntry = (entry) => {
+  return axios.post('/api/create-entry', {
+    content: entry.content,
+    parent: entry.parent.id,
+    pos: entry.pos,
+  })
 }
 
 
@@ -30,5 +41,6 @@ const insertEntry = (entry, parentEntry, pos = null) => {
 
 export {
   removeEntry,
-  insertEntry
+  insertEntry,
+  createEntry
 }
