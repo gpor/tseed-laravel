@@ -1,3 +1,4 @@
+import AccordionPanel from '~/js/lib/AccordionPanel.js'
 
 
 export default class {
@@ -14,5 +15,13 @@ export default class {
       "",
       `${location.pathname}?${this.urlSearchParams}`
     );
+  }
+  add(rootEntry) {
+    const panel = new AccordionPanel(rootEntry, this, this.panels.length)
+    this.panels.push(panel)
+  }
+  replace(rootEntry, pos) {
+    const panel = new AccordionPanel(rootEntry, this, pos)
+    this.panels.splice(pos, 1, panel)
   }
 }

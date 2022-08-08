@@ -16,13 +16,22 @@ section.page-section {
     .center-frame {
       display: grid;
       gap: 30px;
-      grid-template-columns: repeat(auto-fill, 500px);
-    }
-    @media (max-width: 1150px) {
-      .center-frame {
+      grid-template-columns: repeat(4, 1fr);
+      @media (max-width: 2100px) {
+        grid-template-columns: repeat(3, 1fr);
+      }
+      @media (max-width: 1400px) {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      @media (max-width: 600px) {
         grid-template-columns: 1fr;
       }
     }
+    // @media (max-width: 1150px) {
+    //   .center-frame {
+    //     grid-template-columns: 1fr;
+    //   }
+    // }
   }
   &.-login-or-register {
     .center-frame {
@@ -36,6 +45,23 @@ section.page-section {
 .accordion-panel {
   header {
     @include element-pad-x;
+    @include a.flex;
     margin-bottom: 20px;
+    h2 {
+      display: inline-block;
+    }
+    .-close {
+      display: inline-block;
+      width: 20px;
+      opacity: 0.2;
+      cursor: pointer;
+      transition: opacity 0.2s linear;
+      svg {
+        width: 20px;
+      }
+      &:hover {
+        opacity: 1;
+      }
+    }
   }
 }

@@ -58,8 +58,12 @@
               ref="menu"
               class="-list"
             >
-              <span>Open in new panel</span>
-              <span>Open in this panel</span>
+              <span
+                @click.stop="openInNewPanel"
+              >Open in new panel</span>
+              <span
+                @click.stop="openInThisPanel"
+              >Open in this panel</span>
               <span
                 v-if="entry.entries.length === 0"
                 class="-delete"
@@ -170,6 +174,12 @@ export default {
         .then(res => {
           removeEntry(this.entry, this.entry.parent)
         })
+    },
+    openInNewPanel() {
+      this.$root.accordionPanels.add(this.entry)
+    },
+    openInThisPanel() {
+      this.$root.accordionPanels.replace(this.entry, this.panel.i)
     },
     setEditingFlag(val) {
       this.isEditing = val

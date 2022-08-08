@@ -1,7 +1,7 @@
 @use '~/sass/agnostic/general.scss' as a;
 
 
-$frame-max: 1800px;
+$frame-max: 2200px;
 
 @mixin page-gutter($side) {
   @include a.page-gutter-agnostic($side, $frame-max);

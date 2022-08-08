@@ -8,7 +8,7 @@
       <div class="center-frame">
         <AccordionPanel
           v-for="(panel, i) in accordionPanels"
-          :key="i"
+          :key="`${i}-${panel.rootEntry.id}`"
           :panel="panel"
         />
       </div>
