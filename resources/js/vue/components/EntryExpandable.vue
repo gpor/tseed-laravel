@@ -46,6 +46,29 @@
       </div>
       <div class="-right">
         <div
+          class="-menu"
+          :class="{'-is-open': menuIsOpen}"
+          @click="showMenu"
+        >
+          <p class="-icon">
+            <IconMenu />
+          </p>
+          <div class="-pos-bottom">
+            <div
+              ref="menu"
+              class="-list"
+            >
+              <span>Open in new panel</span>
+              <span>Open in this panel</span>
+              <span
+                v-if="entry.entries.length === 0"
+                class="-delete"
+                @click.stop="deleteEntry"
+              >Delete</span>
+            </div>
+          </div>
+        </div>
+        <div
           v-if="entry.entries.length"
           class="-chev"
           @click="expand(i)"
@@ -76,9 +99,10 @@
 <script>
 import ChevDown from '~/js/vue/components/svg/ChevDown.vue'
 import AddIcon from '~/js/vue/components/svg/AddIcon.vue'
+import IconMenu from '~/js/vue/components/svg/IconMenu.vue'
 import Spinner from '~/js/vue/components/svg/Spinner.vue'
 import { Drop } from "vue-easy-dnd";
-import { removeEntry, insertEntry, createEntry, updateEntry } from '~/js/lib/mutations.js'
+import { removeEntry, insertEntry, createEntry, updateEntry, deleteEntry } from '~/js/lib/mutations.js'
 
 export default {
   name: 'EntryExpandable',
@@ -87,6 +111,7 @@ export default {
     AddIcon,
     Spinner,
     Drop,
+    IconMenu,
   },
   props: {
     entry: {
@@ -107,6 +132,7 @@ export default {
     apiQueried: false,
     isEditing: false,
     editedContent: '',
+    menuIsOpen: false,
   }),
   created() {
     this.entry.entries.forEach(e => {
@@ -118,7 +144,7 @@ export default {
         e.childrenQueried = false
       }
     })
-    if (this.panel.expanded.has(this.entry.id) && this.entry.entries.length) {
+    if (this.panel.expanded.has(this.entry.id)) {
       this.expand()
     }
     if (this.entry.isEditing) {
@@ -127,6 +153,24 @@ export default {
     }
   },
   methods: {
+    showMenu() {
+      if ( ! this.menuIsOpen) {
+        this.menuIsOpen = true;
+        setTimeout(() => {
+          this.$root.openMenuEl = this.$refs.menu
+          this.$root.closeMenuCallback = () => {
+            this.menuIsOpen = false
+          }
+        }, 100)
+      }
+    },
+    deleteEntry() {
+      console.log('DELETE')
+      deleteEntry(this.entry)
+        .then(res => {
+          removeEntry(this.entry, this.entry.parent)
+        })
+    },
     setEditingFlag(val) {
       this.isEditing = val
       this.$root.isEditing = val
@@ -249,6 +293,9 @@ export default {
               }
             })
             this.apiQueried = true
+            if (this.entry.entries.length === 0 && this.isExpanded) {
+              this.isExpanded = false
+            }
           })
       }
     },

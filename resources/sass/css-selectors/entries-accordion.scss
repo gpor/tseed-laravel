@@ -69,26 +69,97 @@
         .-right {
           display: inline-flex;
           align-items: center;
+          flex: 0 0 auto;
+          .-menu, .-chev, .-add {
+            flex: 0 0 auto;
+            display: inline-flex;
+            align-items: center;
+          }
+          .-menu {
+            display: inline-flex;
+            align-items: center;
+            width: 34px;
+            cursor: pointer;
+            padding: 0 9px;
+            height: 100%;
+            position: relative;
+            .-icon {
+              width: 100%;
+              opacity: 0.2;
+              transition: opacity 0.2s linear;
+              margin: -4px 0 0;
+              display: inline-block;
+            }
+            &:hover {
+              .-icon {
+                opacity: 1;
+              }
+            }
+            .-pos-bottom {
+              position: absolute;
+              bottom: 0;
+              right: -20px;
+              width: 190px;
+              cursor: default;
+              .-list {
+                position: absolute;
+                top: -10px;
+                left: 0;
+                right: 0;
+                opacity: 0;
+                transition: opacity 0.2s linear, top 0.3s ease;
+                pointer-events: none;
+                background-color: $bg-main;
+                padding: 3px 0;
+                z-index: 10;
+                box-shadow: 0 5px 25px -5px $overlay-color;
+                border-radius: 3px;
+                span {
+                  @include p-sml;
+                  display: block;
+                  padding: 3px 10px;
+                  background-color: $bg-main;
+                  transition: background-color 0.2s linear;
+                  cursor: pointer;
+                  &:hover {
+                    background-color: $bg-var1;
+                  }
+                }
+              }
+            }
+            &.-is-open {
+              .-pos-bottom {
+                .-list {
+                  top: 0;
+                  opacity: 1;
+                  pointer-events: auto;
+                }
+              }
+            }
+          }
           .-chev, .-add {
+            @include a.pad-y(8px);
+            margin: -5px 0;
             cursor: pointer;
             transition: opacity 0.2s linear, transform 0.2s ease;
+            width: 34px;
             svg {
+              width: 100%;
               path {
                 stroke: $text-main;
               }
             }
           }
           .-chev {
-            padding: 0 10px;
+            @include a.pad-x(10px);
             opacity: 0.3;
-            transform: translateY(-4px);
+            transform: none;
             svg {
-              width: 14px;
             }
           }
           .-add {
             @include add-icon;
-            padding: 0 8px;
+            @include a.pad-x(8px);
           }
           .-chev, .-add {
             &:hover {
@@ -121,13 +192,13 @@
           .-left {
             p {
               &.-child-count {
-                background-color: $stroke-color-med;
+                background-color: $stroke-color-faint;
               }
             }
           }
           .-right {
             .-chev {
-              transform: rotateX(180deg) translateY(2px);;
+              transform: rotateX(180deg);
               svg path {
               }
             }

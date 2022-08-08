@@ -118,4 +118,15 @@ $font-body-weight-bold: 500;
     @include text-y-margin;
   }
 }
+@mixin p-sml($margins: false, $color: true) {
+  @include a.font-size(0.7, 0.75);
+  @include font-family-body;
+  line-height: 1.6;
+  @if ($color == true) {
+    @include text-color-main;
+  }
+  @if ($margins == true) {
+    @include text-y-margin;
+  }
+}
 

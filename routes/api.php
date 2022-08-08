@@ -15,6 +15,7 @@ Route::group(['middleware' => ['auth:sanctum']], function() {
     Route::post('/create-entry', [GeneralController::class, 'createEntry']);
     Route::get('/entries-with-children', [GeneralController::class, 'entriesWithChildren']);
     Route::patch('/update-entry', [GeneralController::class, 'updateEntry']);
+    Route::delete('/delete-entry', [GeneralController::class, 'deleteEntry']);
 });
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {

@@ -3,6 +3,7 @@ require('./bootstrap');
 import Vue from 'vue'
 window.Vue = Vue
 import axios from 'axios'
+axios.defaults.withCredentials = true;
 window.axios = axios
 import Auth from '~/js/lib/Auth.js'
 import { PageModalSml } from '~/js/lib/PageModal.js'
@@ -33,7 +34,22 @@ new Vue({
     accordionPanels,
     isEditing: false,
     newEntryNextKey: 0,
+    openMenuEl: null,
+    closeMenuCallback: null,
   }),
+  created() {
+    window.addEventListener('click', e => {
+      if (this.openMenuEl && this.closeMenuCallback) {
+        if ( ! this.openMenuEl.contains(e.target)) {
+          this.closeMenuCallback()
+          this.openMenuEl = null
+          this.closeMenuCallback = null
+        } else {
+          console.log('does not contain')
+        }
+      }
+    })
+  },
   methods: {
     entriesApiCall(rootId) {
       const params = { rootId }

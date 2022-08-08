@@ -44,6 +44,10 @@ const updateEntry = (entry) => {
   return axios.patch(apiUrlBase + '/api/update-entry', entry)
 }
 
+const deleteEntry = (entry) => {
+  return axios.delete(apiUrlBase + '/api/delete-entry', { params: { id: entry.id } })
+}
+
 
 
 
@@ -52,5 +56,6 @@ export {
   removeEntry,
   insertEntry,
   createEntry,
-  updateEntry
+  updateEntry,
+  deleteEntry
 }

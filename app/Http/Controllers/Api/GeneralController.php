@@ -59,4 +59,13 @@ class GeneralController extends Controller
             'success' => $success,
         ]);
     }
+    
+    public function deleteEntry(Request $request)
+    {
+        $entry = Entry::findOrFail($request->get('id'));
+        $entry->delete();
+        return response()->json([
+            'success' => true,
+        ]);
+    }
 }

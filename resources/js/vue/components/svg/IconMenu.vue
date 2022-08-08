@@ -1,0 +1,23 @@
+<template>
+  <svg
+    viewBox="0 0 22 10"
+    version="1.1"
+  >
+    <g>
+      <rect
+        class="-fill"
+        width="22"
+        height="1"
+        x="0"
+        y="0"
+      />
+      <rect
+        class="-fill"
+        width="22"
+        height="1"
+        x="0"
+        y="9"
+      />
+    </g>
+  </svg>
+</template>
