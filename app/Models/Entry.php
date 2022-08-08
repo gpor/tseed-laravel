@@ -9,7 +9,7 @@ class Entry extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['id', 'parent_id', 'content', 'pos'];
+    protected $fillable = ['id', 'parent_id', 'content', 'pos', 'user_id'];
 
     public function entries()
     {
