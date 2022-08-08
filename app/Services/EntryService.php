@@ -23,6 +23,16 @@ class EntryService
             return auth()->user()->id;
         }
     }
+    
+    public static function createEntry($parentId, $pos, $content)
+    {
+        return Entry::create([
+            'content' => $content,
+            'parent_id' => $parentId,
+            'pos' => $pos,
+            'user_id' => self::userId()
+        ]);
+    }
 
     public static function updateEntry($id, $data)
     {

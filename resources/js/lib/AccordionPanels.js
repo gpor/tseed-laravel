@@ -19,9 +19,18 @@ export default class {
   add(rootEntry) {
     const panel = new AccordionPanel(rootEntry, this, this.panels.length)
     this.panels.push(panel)
+    this.updateUrl()
   }
   replace(rootEntry, pos) {
     const panel = new AccordionPanel(rootEntry, this, pos)
     this.panels.splice(pos, 1, panel)
+    this.updateUrl()
+  }
+  close(panel) {
+    this.panels.splice(panel.i, 1)
+    this.panels.forEach(((panel, i) => {
+      panel.i = i
+    }))
+    this.updateUrl()
   }
 }

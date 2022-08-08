@@ -23,16 +23,12 @@ export default class {
   expand(id) {
     this.expanded.add(id)
     this.accordionPanels.updateUrl()
-    // todo - update URL
   }
   fold(id) {
     this.expanded.delete(id)
     this.accordionPanels.updateUrl()
-    // todo - update URL
   }
   close() {
-    console.log('close', this.accordionPanels.panels.length)
-    this.accordionPanels.panels.splice(this.i, 1)
-    // todo - update URL
+    this.accordionPanels.close(this)
   }
 }

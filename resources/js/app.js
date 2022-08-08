@@ -42,15 +42,16 @@ new Vue({
       if (this.openMenuEl && this.closeMenuCallback) {
         if ( ! this.openMenuEl.contains(e.target)) {
           this.closeMenuCallback()
-          this.openMenuEl = null
-          this.closeMenuCallback = null
-        } else {
-          console.log('does not contain')
+          this.closeMenu()
         }
       }
     })
   },
   methods: {
+    closeMenu() {
+      this.openMenuEl = null
+      this.closeMenuCallback = null
+    },
     entriesApiCall(rootId) {
       const params = { rootId }
       // console.log('apiUrlBase', apiUrlBase)

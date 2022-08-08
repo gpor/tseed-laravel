@@ -36,12 +36,12 @@ class GeneralController extends Controller
     {
         $pos = $request->get('pos');
         $parentId = $request->get('parent');
-        $newEntry = Entry::create([
-            'content' => $request->get('content'),
-            'parent_id' => $parentId,
-            'pos' => $pos,
-        ]);
-        $success = EntryService::insertEntry(
+        $newEntry = EntryService::createEntry(
+            $parentId,
+            $pos,
+            $request->get('content')
+        );
+        EntryService::insertEntry(
             $newEntry,
             Entry::find($parentId),
             $pos

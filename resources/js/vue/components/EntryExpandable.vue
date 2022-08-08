@@ -169,17 +169,23 @@ export default {
       }
     },
     deleteEntry() {
-      console.log('DELETE')
       deleteEntry(this.entry)
         .then(res => {
           removeEntry(this.entry, this.entry.parent)
+          this.closeMenu()
         })
     },
     openInNewPanel() {
       this.$root.accordionPanels.add(this.entry)
+      this.closeMenu()
     },
     openInThisPanel() {
       this.$root.accordionPanels.replace(this.entry, this.panel.i)
+      this.closeMenu()
+    },
+    closeMenu() {
+      this.menuIsOpen = false
+      this.$root.closeMenu()
     },
     setEditingFlag(val) {
       this.isEditing = val
