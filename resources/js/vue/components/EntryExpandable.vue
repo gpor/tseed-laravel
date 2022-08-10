@@ -233,6 +233,20 @@ export default {
       } else if (key === 'ArrowDown') {
         // e.preventDefault()
       } else if (key === 'Tab') {
+        
+        // todo
+        /*
+        if current entry.pos > 0
+        append to parent.entries[pos - 1].entries
+        */
+        console.log('%c Tab ', 'background-color: #fab')
+        const pos = this.entry.pos
+        console.log('this.entry.pos', pos)
+        if (pos > 0) {
+          console.log('above children', this.entry.parent.entries[this.entry.pos - 1].entries.length)
+        }
+        
+        
         e.preventDefault()
       }
     },
